@@ -1,11 +1,12 @@
 <template>
   <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
   <!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" /> -->
-  <SettingsComponent />
-  <div v-if="isInitialOpening">There is initial opening</div>
+  <WeatherComponent v-if="mode === 'weather'" />
+  <SettingsComponent v-if="mode === 'settings'" />
 </template>
 
 <script setup lang="ts">
+import WeatherComponent from "./components/WeatherComponent.vue";
 import SettingsComponent from "./components/SettingsComponent.vue";
 
 import { reactive, ref, computed } from "vue";
