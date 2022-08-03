@@ -7,17 +7,10 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
 
-export default defineComponent({
-  name: "AddLocation",
-  data() {
-    return {
-      city: "",
-    };
-  },
-});
+const city = ref("");
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
