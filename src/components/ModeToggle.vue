@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import { computed, defineProps, defineEmits } from "vue";
 
-import { Mode } from "../ts/constants";
+import { Mode } from "../ts/types";
 
 interface Props {
   mode: Mode;

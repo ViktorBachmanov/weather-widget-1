@@ -14,7 +14,8 @@ import WeatherComponent from "./components/WeatherComponent.vue";
 import SettingsComponent from "./components/SettingsComponent.vue";
 import ModeToggle from "./components/ModeToggle.vue";
 
-import { Mode } from "./ts/constants";
+import { Mode, Location } from "./ts/types";
+import { isWeatherDataOutdated } from "./ts/util";
 
 console.log("Setup App");
 
@@ -23,11 +24,6 @@ const LOCAL_CONFIG = "weather_widget_vb";
 addEventListener("beforeunload", () => {
   localStorage.setItem(LOCAL_CONFIG, JSON.stringify(locations));
 });
-
-interface Location {
-  city: string;
-  fetched_at: number;
-}
 
 const locations: Array<Location> = reactive([]);
 
@@ -40,7 +36,25 @@ const mode: Ref<Mode> = ref(
 );
 
 function toggleMode() {
-  mode.value = mode.value === Mode.Weather ? Mode.Settings : Mode.Weather;
+  //mode.value = mode.value === Mode.Weather ? Mode.Settings : Mode.Weather;
+
+  switch (mode.value) {
+    case Mode.Weather:
+      mode.value = Mode.Settings;
+      break;
+    case Mode.Settings:
+      mode.value = Mode.Weather;
+      updateWeatherData();
+      break;
+  }
+}
+
+function updateWeatherData() {
+  locations.forEach((location) => {
+    if (isWeatherDataOutdated(location.fetchedAt)) {
+      //fetch()
+    }
+  });
 }
 </script>
 
