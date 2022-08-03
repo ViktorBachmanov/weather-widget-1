@@ -1,27 +1,15 @@
 <template>
   <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
   <!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" /> -->
-  <AddLocation />
+  <SettingsComponent />
   <div v-if="isInitialOpening">There is initial opening</div>
 </template>
 
 <script setup lang="ts">
-// import { defineComponent } from "vue";
-// //import HelloWorld from "./components/HelloWorld.vue";
-import AddLocation from "./components/AddLocation.vue";
-
-// export default defineComponent({
-//   name: "App",
-//   components: {
-//     //HelloWorld,
-//     AddLocation,
-//   },
-
-// });
+import SettingsComponent from "./components/SettingsComponent.vue";
 
 import { reactive, ref, computed } from "vue";
 import type { Ref } from "vue";
-//import { LOCAL_CONFIG } from "./ts/constants";
 
 console.log("Setup App");
 
@@ -38,14 +26,12 @@ interface Location {
 
 const locations: Array<Location> = reactive([]);
 
-//type Mode = 'weather' | 'settings';
-
 const isInitialOpening = computed(
   () => localStorage.getItem(LOCAL_CONFIG) === null
 );
 
 const mode: Ref<"weather" | "settings"> = ref(
-  isInitialOpening ? "settings" : "weather"
+  isInitialOpening.value ? "settings" : "weather"
 );
 </script>
 
