@@ -85,6 +85,7 @@ async function fetchLocationWeather() {
 .container {
   min-width: 12em;
   max-width: 15em;
+  position: relative;
 }
 .location {
   background-color: #e5e7eb;

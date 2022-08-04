@@ -21,14 +21,35 @@ import { ref, onMounted } from "vue";
 
 const iconEl = ref(null);
 
-let parentEl: HTMLElement;
+let locationEl: HTMLElement;
+let containerEl: HTMLElement;
 
 onMounted(() => {
   const iconHtmlEl = iconEl.value! as HTMLElement;
-  parentEl = iconHtmlEl.parentElement!;
+  locationEl = iconHtmlEl.parentElement!;
+  containerEl = locationEl.parentElement!;
 });
 
 function drag() {
-  console.log("parent element: ", parentEl);
+  console.log("parent element: ", locationEl);
+
+  const locationElClone = locationEl.cloneNode(true) as HTMLElement;
+  locationEl.style.visibility = "hidden";
+
+  locationElClone.style.position = "absolute";
+  const rect = locationElClone.getBoundingClientRect();
+  moveAt(rect.x, rect.y);
+  containerEl.append(locationElClone);
+
+  containerEl.addEventListener("pointermove", onPointerMove);
+
+  function moveAt(x: number, y: number) {
+    locationElClone.style.left = x + "px";
+    locationElClone.style.top = y + "px";
+  }
+
+  function onPointerMove(event: any) {
+    moveAt(event.offsetX, event.offsetY);
+  }
 }
 </script>
