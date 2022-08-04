@@ -4,9 +4,12 @@
 
     <!-- <div v-if="locations.length > 0"> -->
     <div v-for="location in locations" :key="location.data.name">
+      <img src="../assets/list.svg" alt="hamburger icon" />
       {{ location.data.name }}
     </div>
     <!-- </div> -->
+
+    <p></p>
 
     <label>
       <div>Add Location</div>
