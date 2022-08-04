@@ -6,6 +6,8 @@
     fill="currentColor"
     class="bi bi-list"
     viewBox="0 0 16 16"
+    ref="iconEl"
+    @pointerdown="drag"
   >
     <path
       fill-rule="evenodd"
@@ -13,3 +15,20 @@
     />
   </svg>
 </template>
+
+<script setup lang="ts">
+import { ref, onMounted } from "vue";
+
+const iconEl = ref(null);
+
+let parentEl: HTMLElement;
+
+onMounted(() => {
+  const iconHtmlEl = iconEl.value! as HTMLElement;
+  parentEl = iconHtmlEl.parentElement!;
+});
+
+function drag() {
+  console.log("parent element: ", parentEl);
+}
+</script>

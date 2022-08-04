@@ -1,14 +1,18 @@
 <template>
-  <div>
+  <div class="settings">
     <h3>Settings</h3>
 
-    <!-- <div v-if="locations.length > 0"> -->
-    <div v-for="location in locations" :key="location.data.name">
-      <!-- <img src="../assets/list.svg" alt="hamburger icon" /> -->
-      <HamburgerIcon />
-      {{ location.data.name }}
+    <div class="container">
+      <div
+        v-for="location in locations"
+        :key="location.data.name"
+        class="location"
+      >
+        <!-- <img src="../assets/list.svg" alt="hamburger icon" /> -->
+        <HamburgerIcon />
+        {{ location.data.name }}
+      </div>
     </div>
-    <!-- </div> -->
 
     <p></p>
 
@@ -72,4 +76,18 @@ async function fetchLocationWeather() {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.settings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.container {
+  min-width: 12em;
+  max-width: 15em;
+}
+.location {
+  background-color: #e5e7eb;
+  margin: 0.5em;
+}
+</style>
