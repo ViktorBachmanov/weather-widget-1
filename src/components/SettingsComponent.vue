@@ -4,7 +4,8 @@
 
     <!-- <div v-if="locations.length > 0"> -->
     <div v-for="location in locations" :key="location.data.name">
-      <img src="../assets/list.svg" alt="hamburger icon" />
+      <!-- <img src="../assets/list.svg" alt="hamburger icon" /> -->
+      <HamburgerIcon />
       {{ location.data.name }}
     </div>
     <!-- </div> -->
@@ -24,6 +25,8 @@
 import { ref, defineEmits, defineProps, computed } from "vue";
 
 import { Location } from "../ts/types";
+
+import HamburgerIcon from "./HamburgerIcon.vue";
 
 console.log("setup Settings component");
 
