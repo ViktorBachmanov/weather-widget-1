@@ -2,7 +2,7 @@
   <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
   <!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" /> -->
   <WeatherComponent v-if="mode === Mode.Weather" />
-  <SettingsComponent v-if="mode === Mode.Settings" />
+  <SettingsComponent v-if="mode === Mode.Settings" :locations="locations" />
   <ModeToggle :mode="mode" @toggle-mode="toggleMode" />
 </template>
 
@@ -17,7 +17,7 @@ import ModeToggle from "./components/ModeToggle.vue";
 import { Mode, Location } from "./ts/types";
 import { isWeatherDataOutdated } from "./ts/util";
 
-console.log("Setup App");
+console.log("setup App");
 
 const LOCAL_CONFIG = "weather_widget_vb";
 
@@ -36,25 +36,17 @@ const mode: Ref<Mode> = ref(
 );
 
 function toggleMode() {
-  //mode.value = mode.value === Mode.Weather ? Mode.Settings : Mode.Weather;
+  mode.value = mode.value === Mode.Weather ? Mode.Settings : Mode.Weather;
 
-  switch (mode.value) {
-    case Mode.Weather:
-      mode.value = Mode.Settings;
-      break;
-    case Mode.Settings:
-      mode.value = Mode.Weather;
-      updateWeatherData();
-      break;
-  }
-}
-
-function updateWeatherData() {
-  locations.forEach((location) => {
-    if (isWeatherDataOutdated(location.fetchedAt)) {
-      //fetch()
-    }
-  });
+  // switch (mode.value) {
+  //   case Mode.Weather:
+  //     mode.value = Mode.Settings;
+  //     break;
+  //   case Mode.Settings:
+  //     mode.value = Mode.Weather;
+  //     updateWeatherData();
+  //     break;
+  // }
 }
 </script>
 

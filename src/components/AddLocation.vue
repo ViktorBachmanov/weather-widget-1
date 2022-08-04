@@ -5,16 +5,33 @@
       <input v-model="city" />
     </label>
 
-    <button>Add</button>
+    <button :disabled="isDisabled" @click="addLocation">Add</button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, defineEmits } from "vue";
+import { ref, defineEmits, defineProps, computed } from "vue";
 
 import { Location } from "../ts/types";
 
+interface Props {
+  locations: Location[];
+}
+
+const props = defineProps<Props>();
+
 const city = ref("");
+
+const isAlreadyExist = computed(() => {
+  props.locations.some((location) => {
+    return location.data.name.toUpperCase() === city.value;
+  });
+  return false;
+});
+
+const isDisabled = computed(() => {
+  return city.value === "" || isAlreadyExist.value;
+});
 
 const emit = defineEmits<{
   (e: "addLocation", location: Location): void;
