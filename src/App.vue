@@ -2,7 +2,11 @@
   <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
   <!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" /> -->
   <WeatherComponent v-if="mode === Mode.Weather" />
-  <SettingsComponent v-if="mode === Mode.Settings" :locations="locations" />
+  <SettingsComponent
+    v-if="mode === Mode.Settings"
+    :locations="locations"
+    @add-location="addLocation"
+  />
   <ModeToggle :mode="mode" @toggle-mode="toggleMode" />
 </template>
 
@@ -25,7 +29,13 @@ addEventListener("beforeunload", () => {
   localStorage.setItem(LOCAL_CONFIG, JSON.stringify(locations));
 });
 
-const locations: Array<Location> = reactive([]);
+const persistedData = localStorage.getItem(LOCAL_CONFIG);
+
+const initialLocations: Location[] = persistedData
+  ? JSON.parse(persistedData)
+  : [];
+
+const locations: Location[] = reactive(initialLocations);
 
 const isInitialOpening = computed(
   () => localStorage.getItem(LOCAL_CONFIG) === null
@@ -37,16 +47,10 @@ const mode: Ref<Mode> = ref(
 
 function toggleMode() {
   mode.value = mode.value === Mode.Weather ? Mode.Settings : Mode.Weather;
+}
 
-  // switch (mode.value) {
-  //   case Mode.Weather:
-  //     mode.value = Mode.Settings;
-  //     break;
-  //   case Mode.Settings:
-  //     mode.value = Mode.Weather;
-  //     updateWeatherData();
-  //     break;
-  // }
+function addLocation(location: Location) {
+  locations.push(location);
 }
 </script>
 

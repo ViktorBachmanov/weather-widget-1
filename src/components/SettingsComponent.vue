@@ -1,16 +1,26 @@
 <template>
   <div>
     <h3>Settings</h3>
-    <AddLocation :locations="locations" />
+
+    <!-- <div v-if="locations.length > 0"> -->
+    <div v-for="location in locations" :key="location.data.name">
+      {{ location.data.name }}
+    </div>
+    <!-- </div> -->
+
+    <label>
+      <div>Add Location</div>
+      <input v-model="city" />
+    </label>
+
+    <button :disabled="isDisabled" @click="fetchLocationWeather">Add</button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { ref, defineEmits, defineProps, computed } from "vue";
 
 import { Location } from "../ts/types";
-
-import AddLocation from "./AddLocation.vue";
 
 console.log("setup Settings component");
 
@@ -19,6 +29,40 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+
+const city = ref("");
+
+const isAlreadyExist = computed(() => {
+  return props.locations.some((location) => {
+    return location.data.name.toUpperCase() === city.value.toUpperCase();
+  });
+});
+
+const isDisabled = computed(() => {
+  return city.value === "" || isAlreadyExist.value;
+});
+
+const emit = defineEmits<{
+  (e: "addLocation", location: Location): void;
+}>();
+
+async function fetchLocationWeather() {
+  const response = await fetch(
+    `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${process.env.VUE_APP_API_KEY}`
+  );
+
+  if (response.ok) {
+    const locationData = await response.json();
+    const location: Location = {
+      fetchedAt: Date.now(),
+      data: locationData,
+    };
+    emit("addLocation", location);
+    city.value = "";
+  } else if (response.status === 404) {
+    console.log("Not found");
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
