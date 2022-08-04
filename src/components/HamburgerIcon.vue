@@ -6,7 +6,7 @@
     fill="currentColor"
     class="bi bi-list"
     viewBox="0 0 16 16"
-    @pointerdown="drag"
+    @mousedown="drag"
   >
     <path
       fill-rule="evenodd"
@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const iconEl = ref(null);
+//const iconEl = ref(null);
 
 // let locationEl: HTMLElement;
 // let containerEl: HTMLElement;
@@ -34,27 +34,40 @@ function drag(e: any) {
   const locationEl: HTMLElement = iconHtmlEl.parentElement!;
   const containerEl: HTMLElement = locationEl.parentElement!;
 
+  iconHtmlEl.onmouseup = function () {
+    document.removeEventListener("mousemove", onMouseMove);
+    iconHtmlEl.onmouseup = null;
+  };
+
   const locationElClone = locationEl.cloneNode(true) as HTMLElement;
-  locationEl.style.visibility = "hidden";
+  //locationEl.style.visibility = "hidden";
 
   locationElClone.style.position = "absolute";
-  const rect = locationElClone.getBoundingClientRect();
-  moveAt(rect.x, rect.y);
-  containerEl.append(locationElClone);
+  locationElClone.style.zIndex = "1000";
+  //const rect = locationElClone.getBoundingClientRect();
+  moveAt(e.pageX, e.pageY);
+  //containerEl.append(locationElClone);
+  document.body.append(locationElClone);
 
   //   locationElClone.ondragstart = function() {
   //   return false;
   // }
 
-  containerEl.addEventListener("pointermove", onPointerMove);
+  //containerEl.addEventListener("pointermove", onPointerMove);
+  document.addEventListener("mousemove", onMouseMove);
+
+  iconHtmlEl.onmouseup = function () {
+    document.removeEventListener("mousemove", onMouseMove);
+    iconHtmlEl.onmouseup = null;
+  };
 
   function moveAt(x: number, y: number) {
     locationElClone.style.left = x + "px";
     locationElClone.style.top = y + "px";
   }
 
-  function onPointerMove(event: any) {
-    moveAt(event.offsetX, event.offsetY);
+  function onMouseMove(event: any) {
+    moveAt(event.pageX, event.pageY);
   }
 }
 </script>
