@@ -6,7 +6,6 @@
     fill="currentColor"
     class="bi bi-list"
     viewBox="0 0 16 16"
-    ref="iconEl"
     @pointerdown="drag"
   >
     <path
@@ -17,21 +16,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 
 const iconEl = ref(null);
 
-let locationEl: HTMLElement;
-let containerEl: HTMLElement;
+// let locationEl: HTMLElement;
+// let containerEl: HTMLElement;
 
-onMounted(() => {
-  const iconHtmlEl = iconEl.value! as HTMLElement;
-  locationEl = iconHtmlEl.parentElement!;
-  containerEl = locationEl.parentElement!;
-});
+// onMounted(() => {
+//   const iconHtmlEl = iconEl.value! as HTMLElement;
+//   locationEl = iconHtmlEl.parentElement!;
+//   containerEl = locationEl.parentElement!;
+// });
 
-function drag() {
-  console.log("parent element: ", locationEl);
+function drag(e: any) {
+  const iconHtmlEl: HTMLElement = e.target;
+  const locationEl: HTMLElement = iconHtmlEl.parentElement!;
+  const containerEl: HTMLElement = locationEl.parentElement!;
 
   const locationElClone = locationEl.cloneNode(true) as HTMLElement;
   locationEl.style.visibility = "hidden";
@@ -40,6 +41,10 @@ function drag() {
   const rect = locationElClone.getBoundingClientRect();
   moveAt(rect.x, rect.y);
   containerEl.append(locationElClone);
+
+  //   locationElClone.ondragstart = function() {
+  //   return false;
+  // }
 
   containerEl.addEventListener("pointermove", onPointerMove);
 
