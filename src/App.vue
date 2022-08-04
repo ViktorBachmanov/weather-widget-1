@@ -35,7 +35,7 @@ const initialLocations: Location[] = persistedData
   ? JSON.parse(persistedData)
   : [];
 
-const locations: Location[] = reactive(initialLocations);
+const locations: Location[] = reactive([...initialLocations]);
 
 const isInitialOpening = computed(
   () => localStorage.getItem(LOCAL_CONFIG) === null
