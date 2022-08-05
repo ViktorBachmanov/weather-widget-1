@@ -1,7 +1,7 @@
 <template>
   <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
   <!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" /> -->
-  <WeatherComponent v-if="mode === Mode.Weather" />
+  <WeatherComponent v-if="mode === Mode.Weather" :locations="locations" />
   <SettingsComponent
     v-if="mode === Mode.Settings"
     :locations="locations"

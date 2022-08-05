@@ -5,7 +5,7 @@
     <div class="container">
       <div
         v-for="location in locations"
-        :key="location.data.name"
+        :key="location.data.id"
         class="location"
       >
         <!-- <img src="../assets/list.svg" alt="hamburger icon" /> -->
