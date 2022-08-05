@@ -21,8 +21,8 @@
       <input v-model="city" />
     </label>
 
-    <!-- <button :disabled="isDisabled" @click="fetchLocationWeather">Add</button> -->
-    <button :disabled="isDisabled">Add</button>
+    <button :disabled="isDisabled" @click="fetchLocationWeather">Add</button>
+    <!-- <button :disabled="isDisabled">Add</button> -->
   </div>
 </template>
 
@@ -60,7 +60,7 @@ const emit = defineEmits<{
 
 async function fetchLocationWeather() {
   const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${process.env.VUE_APP_API_KEY}`
+    `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${process.env.VUE_APP_API_KEY}&units=metric`
   );
 
   if (response.ok) {
