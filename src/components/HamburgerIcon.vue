@@ -7,6 +7,7 @@
     class="bi bi-list"
     viewBox="0 0 16 16"
     @mousedown="drag"
+    @touchstart="mobileDrag"
   >
     <path
       fill-rule="evenodd"
@@ -16,8 +17,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-
 //const iconEl = ref(null);
 
 // let locationEl: HTMLElement;
@@ -33,11 +32,6 @@ function drag(e: any) {
   const iconHtmlEl: HTMLElement = e.target;
   const locationEl: HTMLElement = iconHtmlEl.parentElement!;
   const containerEl: HTMLElement = locationEl.parentElement!;
-
-  iconHtmlEl.onmouseup = function () {
-    document.removeEventListener("mousemove", onMouseMove);
-    iconHtmlEl.onmouseup = null;
-  };
 
   const locationElClone = locationEl.cloneNode(true) as HTMLElement;
   //locationEl.style.visibility = "hidden";
@@ -56,9 +50,9 @@ function drag(e: any) {
   //containerEl.addEventListener("pointermove", onPointerMove);
   document.addEventListener("mousemove", onMouseMove);
 
-  iconHtmlEl.onmouseup = function () {
+  document.onmouseup = function () {
     document.removeEventListener("mousemove", onMouseMove);
-    iconHtmlEl.onmouseup = null;
+    document.onmouseup = null;
   };
 
   function moveAt(x: number, y: number) {
@@ -70,4 +64,42 @@ function drag(e: any) {
     moveAt(event.pageX, event.pageY);
   }
 }
+
+function mobileDrag(e: any) {
+  e.preventDefault();
+
+  const touch = e.targetTouches.item(0);
+
+  const iconHtmlEl: HTMLElement = e.target;
+  const locationEl: HTMLElement = iconHtmlEl.parentElement!;
+
+  const locationElClone = locationEl.cloneNode(true) as HTMLElement;
+
+  locationElClone.style.position = "absolute";
+  locationElClone.style.zIndex = "1000";
+  moveAt(touch.pageX, touch.pageY);
+  document.body.append(locationElClone);
+
+  document.addEventListener("touchmove", handleTouchMove);
+
+  function moveAt(x: number, y: number) {
+    locationElClone.style.left = x + "px";
+    locationElClone.style.top = y + "px";
+  }
+
+  function handleTouchMove(e: any) {
+    e.preventDefault();
+
+    const touch = e.targetTouches.item(0);
+
+    moveAt(touch.pageX, touch.pageY);
+  }
+}
 </script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+.bi {
+  cursor: grab;
+}
+</style>
