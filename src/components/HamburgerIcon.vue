@@ -6,8 +6,8 @@
     fill="currentColor"
     class="bi bi-list"
     viewBox="0 0 16 16"
-    @mousedown="drag"
-    @touchstart="mobileDrag"
+    @mousedown="mouseDrag"
+    @touchstart="touchDrag"
   >
     <path
       fill-rule="evenodd"
@@ -28,7 +28,13 @@
 //   containerEl = locationEl.parentElement!;
 // });
 
-function drag(e: any) {
+function mouseDrag(e: any) {
+  e.preventDefault();
+
+  if (e.target.tagName !== "svg") {
+    return;
+  }
+
   const iconHtmlEl: HTMLElement = e.target;
   const locationEl: HTMLElement = iconHtmlEl.parentElement!;
   const containerEl: HTMLElement = locationEl.parentElement!;
@@ -36,16 +42,15 @@ function drag(e: any) {
   const locationElClone = locationEl.cloneNode(true) as HTMLElement;
   //locationEl.style.visibility = "hidden";
 
+  const locationWidth = locationEl.offsetWidth;
+
+  locationElClone.style.width = locationWidth + "px";
   locationElClone.style.position = "absolute";
   locationElClone.style.zIndex = "1000";
   //const rect = locationElClone.getBoundingClientRect();
-  moveAt(e.pageX, e.pageY);
-  //containerEl.append(locationElClone);
-  document.body.append(locationElClone);
-
-  //   locationElClone.ondragstart = function() {
-  //   return false;
-  // }
+  moveAt(e.pageY);
+  containerEl.append(locationElClone);
+  //document.body.append(locationElClone);
 
   //containerEl.addEventListener("pointermove", onPointerMove);
   document.addEventListener("mousemove", onMouseMove);
@@ -55,35 +60,43 @@ function drag(e: any) {
     document.onmouseup = null;
   };
 
-  function moveAt(x: number, y: number) {
-    locationElClone.style.left = x + "px";
+  function moveAt(pageY: number) {
+    //locationElClone.style.left = x + "px";
+    const y = pageY - containerEl.getBoundingClientRect().top;
     locationElClone.style.top = y + "px";
   }
 
   function onMouseMove(event: any) {
-    moveAt(event.pageX, event.pageY);
+    moveAt(event.pageY);
   }
 }
 
-function mobileDrag(e: any) {
+function touchDrag(e: any) {
   e.preventDefault();
+
+  if (e.target.tagName !== "svg") {
+    return;
+  }
 
   const touch = e.targetTouches.item(0);
 
   const iconHtmlEl: HTMLElement = e.target;
   const locationEl: HTMLElement = iconHtmlEl.parentElement!;
+  const containerEl: HTMLElement = locationEl.parentElement!;
 
   const locationElClone = locationEl.cloneNode(true) as HTMLElement;
 
   locationElClone.style.position = "absolute";
   locationElClone.style.zIndex = "1000";
-  moveAt(touch.pageX, touch.pageY);
-  document.body.append(locationElClone);
+  moveAt(touch.pageY);
+  containerEl.append(locationElClone);
+  //document.body.append(locationElClone);
 
   document.addEventListener("touchmove", handleTouchMove);
 
-  function moveAt(x: number, y: number) {
-    locationElClone.style.left = x + "px";
+  function moveAt(pageY: number) {
+    //locationElClone.style.left = x + "px";
+    const y = pageY - containerEl.getBoundingClientRect().top;
     locationElClone.style.top = y + "px";
   }
 
@@ -92,7 +105,7 @@ function mobileDrag(e: any) {
 
     const touch = e.targetTouches.item(0);
 
-    moveAt(touch.pageX, touch.pageY);
+    moveAt(touch.pageY);
   }
 }
 </script>

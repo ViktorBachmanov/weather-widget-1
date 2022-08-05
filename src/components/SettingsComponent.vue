@@ -21,7 +21,8 @@
       <input v-model="city" />
     </label>
 
-    <button :disabled="isDisabled" @click="fetchLocationWeather">Add</button>
+    <!-- <button :disabled="isDisabled" @click="fetchLocationWeather">Add</button> -->
+    <button :disabled="isDisabled">Add</button>
   </div>
 </template>
 
@@ -85,10 +86,15 @@ async function fetchLocationWeather() {
 .container {
   min-width: 12em;
   max-width: 15em;
-  // position: relative;
+  position: relative;
+  border: 1px solid blue;
+  padding: 1em 0.5em;
 }
 .location {
   background-color: #e5e7eb;
-  margin: 0.5em;
+  margin: 0.5em 0;
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
 }
 </style>
