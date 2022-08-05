@@ -17,6 +17,8 @@
 </template>
 
 <script setup lang="ts">
+import { defineEmits } from "vue";
+
 //const iconEl = ref(null);
 
 // let locationEl: HTMLElement;
@@ -27,6 +29,8 @@
 //   locationEl = iconHtmlEl.parentElement!;
 //   containerEl = locationEl.parentElement!;
 // });
+
+const emit = defineEmits(["reorder"]);
 
 function mouseDrag(e: any) {
   e.preventDefault();
@@ -64,6 +68,10 @@ function mouseDrag(e: any) {
     //locationElClone.style.left = x + "px";
     const y = pageY - containerEl.getBoundingClientRect().top;
     locationElClone.style.top = y + "px";
+
+    if (y < 0) {
+      emit("reorder");
+    }
   }
 
   function onMouseMove(event: any) {

@@ -9,7 +9,7 @@
         class="location"
       >
         <!-- <img src="../assets/list.svg" alt="hamburger icon" /> -->
-        <HamburgerIcon />
+        <HamburgerIcon @reorder="reorder" />
         {{ location.data.name }}
       </div>
     </div>
@@ -55,6 +55,7 @@ const isDisabled = computed(() => {
 
 const emit = defineEmits<{
   (e: "addLocation", location: Location): void;
+  (e: "reorder"): void;
 }>();
 
 async function fetchLocationWeather() {
@@ -73,6 +74,10 @@ async function fetchLocationWeather() {
   } else if (response.status === 404) {
     console.log("Not found");
   }
+}
+
+function reorder() {
+  emit("reorder");
 }
 </script>
 

@@ -6,6 +6,7 @@
     v-if="mode === Mode.Settings"
     :locations="locations"
     @add-location="addLocation"
+    @reorder.once="reorder"
   />
   <ModeToggle :mode="mode" @toggle-mode="toggleMode" />
 </template>
@@ -51,6 +52,10 @@ function toggleMode() {
 
 function addLocation(location: Location) {
   locations.push(location);
+}
+
+function reorder() {
+  locations.reverse();
 }
 </script>
 
