@@ -30,7 +30,7 @@
 import { ref, defineEmits, defineProps, computed } from "vue";
 
 import { Location } from "../ts/types";
-import Drag from "../ts/Drag";
+import drag from "../ts/drag";
 
 import HamburgerIcon from "./HamburgerIcon.vue";
 
@@ -86,7 +86,7 @@ function mouseDrag(index: number, event: MouseEvent) {
 
   event.preventDefault();
 
-  const drag = new Drag(container.value, index, event.clientY);
+  drag(container.value, index, event.clientY);
 }
 
 function reorder(newIndex: number) {
