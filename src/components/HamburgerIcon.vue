@@ -6,8 +6,8 @@
     fill="currentColor"
     class="bi bi-list"
     viewBox="0 0 16 16"
-    @mousedown="mouseDrag"
-    @touchstart="touchDrag"
+    @mousedown.capture="mouseDrag"
+    @touchstart.capture="touchDrag"
   >
     <path
       fill-rule="evenodd"
@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits } from "vue";
+import { defineEmits, defineProps } from "vue";
 
 //const iconEl = ref(null);
 
@@ -30,14 +30,20 @@ import { defineEmits } from "vue";
 //   containerEl = locationEl.parentElement!;
 // });
 
+interface Props {
+  index: number;
+}
+
+const props = defineProps<Props>();
+
 const emit = defineEmits(["reorder"]);
 
 function mouseDrag(e: any) {
   e.preventDefault();
 
-  if (e.target.tagName !== "svg") {
-    return;
-  }
+  // if (e.target.tagName !== "svg") {
+  //   return;
+  // }
 
   const iconHtmlEl: HTMLElement = e.target;
   const locationEl: HTMLElement = iconHtmlEl.parentElement!;
@@ -76,15 +82,16 @@ function mouseDrag(e: any) {
 
   function onMouseMove(event: any) {
     moveAt(event.pageY);
+    console.log("index: ", props.index);
   }
 }
 
 function touchDrag(e: any) {
   e.preventDefault();
 
-  if (e.target.tagName !== "svg") {
-    return;
-  }
+  // if (e.target.tagName !== "svg") {
+  //   return;
+  // }
 
   const touch = e.targetTouches.item(0);
 

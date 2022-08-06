@@ -4,12 +4,12 @@
 
     <div class="container">
       <div
-        v-for="location in locations"
+        v-for="(location, index) in locations"
         :key="location.data.id"
         class="location"
       >
         <!-- <img src="../assets/list.svg" alt="hamburger icon" /> -->
-        <HamburgerIcon @reorder="reorder" />
+        <HamburgerIcon @reorder="reorder" :index="index" />
         {{ location.data.name }}
       </div>
     </div>
