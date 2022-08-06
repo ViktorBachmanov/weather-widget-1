@@ -6,7 +6,6 @@
     fill="currentColor"
     class="bi bi-list"
     viewBox="0 0 16 16"
-    @mousedown="mouseDrag"
     @touchstart="touchDrag"
   >
     <path
@@ -19,24 +18,11 @@
 <script setup lang="ts">
 import { defineEmits, defineProps } from "vue";
 
-//const iconEl = ref(null);
+// interface Props {
+//   index: number;
+// }
 
-// let locationEl: HTMLElement;
-// let containerEl: HTMLElement;
-
-// onMounted(() => {
-//   const iconHtmlEl = iconEl.value! as HTMLElement;
-//   locationEl = iconHtmlEl.parentElement!;
-//   containerEl = locationEl.parentElement!;
-// });
-
-interface Props {
-  index: number;
-}
-
-const props = defineProps<Props>();
-
-//const emit = defineEmits(["reorder"]);
+// const props = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: "reorder", newIndex: number): void;
@@ -54,7 +40,6 @@ function mouseDrag(e: any) {
   const containerEl: HTMLElement = locationEl.parentElement!;
 
   const locationElClone = locationEl.cloneNode(true) as HTMLElement;
-  //locationEl.style.visibility = "hidden";
 
   const locationWidth = locationEl.offsetWidth;
 

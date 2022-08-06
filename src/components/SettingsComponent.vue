@@ -2,14 +2,14 @@
   <div class="settings">
     <h3>Settings</h3>
 
-    <div class="container">
+    <div id="container" ref="container">
       <div
         v-for="(location, index) in locations"
         :key="location.data.id"
         class="location"
       >
         <!-- <img src="../assets/list.svg" alt="hamburger icon" /> -->
-        <HamburgerIcon @reorder="reorder" :index="index" />
+        <HamburgerIcon @mousedown="mouseDrag(index, $event)" />
         {{ location.data.name }}
       </div>
     </div>
@@ -30,6 +30,7 @@
 import { ref, defineEmits, defineProps, computed } from "vue";
 
 import { Location } from "../ts/types";
+import Drag from "../ts/Drag";
 
 import HamburgerIcon from "./HamburgerIcon.vue";
 
@@ -42,6 +43,8 @@ interface Props {
 const props = defineProps<Props>();
 
 const city = ref("");
+
+const container = ref<HTMLElement | null>(null);
 
 const isAlreadyExist = computed(() => {
   return props.locations.some((location) => {
@@ -76,6 +79,16 @@ async function fetchLocationWeather() {
   }
 }
 
+function mouseDrag(index: number, event: MouseEvent) {
+  if (!container.value) {
+    return;
+  }
+
+  event.preventDefault();
+
+  const drag = new Drag(container.value, index, event.clientY);
+}
+
 function reorder(newIndex: number) {
   emit("reorder", newIndex);
 }
@@ -88,7 +101,7 @@ function reorder(newIndex: number) {
   flex-direction: column;
   align-items: center;
 }
-.container {
+#container {
   min-width: 12em;
   max-width: 15em;
   position: relative;
