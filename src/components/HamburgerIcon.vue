@@ -6,8 +6,8 @@
     fill="currentColor"
     class="bi bi-list"
     viewBox="0 0 16 16"
-    @mousedown.capture="mouseDrag"
-    @touchstart.capture="touchDrag"
+    @mousedown="mouseDrag"
+    @touchstart="touchDrag"
   >
     <path
       fill-rule="evenodd"
@@ -36,14 +36,18 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const emit = defineEmits(["reorder"]);
+//const emit = defineEmits(["reorder"]);
+
+const emit = defineEmits<{
+  (e: "reorder", newIndex: number): void;
+}>();
 
 function mouseDrag(e: any) {
   e.preventDefault();
 
-  // if (e.target.tagName !== "svg") {
-  //   return;
-  // }
+  if (e.target.tagName !== "svg") {
+    return;
+  }
 
   const iconHtmlEl: HTMLElement = e.target;
   const locationEl: HTMLElement = iconHtmlEl.parentElement!;
@@ -58,7 +62,7 @@ function mouseDrag(e: any) {
   locationElClone.style.position = "absolute";
   locationElClone.style.zIndex = "1000";
   //const rect = locationElClone.getBoundingClientRect();
-  moveAt(e.pageY);
+  moveAt(e.clientY);
   containerEl.append(locationElClone);
   //document.body.append(locationElClone);
 
@@ -70,30 +74,40 @@ function mouseDrag(e: any) {
     document.onmouseup = null;
   };
 
-  function moveAt(pageY: number) {
+  function moveAt(clientY: number) {
     //locationElClone.style.left = x + "px";
-    const y = pageY - containerEl.getBoundingClientRect().top;
+    //const y = pageY - containerEl.getBoundingClientRect().top;
+    const y = clientY - containerEl.getBoundingClientRect().top;
     locationElClone.style.top = y + "px";
 
-    if (y < 0) {
-      emit("reorder");
-    }
+    // if (y < 0) {
+    //   emit("reorder");
+    // }
   }
 
   function onMouseMove(event: any) {
-    moveAt(event.pageY);
-    console.log("index: ", props.index);
+    moveAt(event.clientY);
+    // const indexAfterMove = getIndexAfterMove(props.index);
+    // if(indexAfterMove !== props.index) {
+    //   emit('reorder', indexAfterMove);
+    // }
   }
 }
+
+// function getIndexAfterMove(currentIndex: number): number {
+
+// }
+
+// function prepareDrag() {
+
+// }
 
 function touchDrag(e: any) {
   e.preventDefault();
 
-  // if (e.target.tagName !== "svg") {
-  //   return;
-  // }
-
-  const touch = e.targetTouches.item(0);
+  if (e.target.tagName !== "svg") {
+    return;
+  }
 
   const iconHtmlEl: HTMLElement = e.target;
   const locationEl: HTMLElement = iconHtmlEl.parentElement!;
@@ -103,6 +117,8 @@ function touchDrag(e: any) {
 
   locationElClone.style.position = "absolute";
   locationElClone.style.zIndex = "1000";
+  const touch = e.targetTouches.item(0);
+
   moveAt(touch.pageY);
   containerEl.append(locationElClone);
   //document.body.append(locationElClone);

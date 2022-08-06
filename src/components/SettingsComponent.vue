@@ -55,7 +55,7 @@ const isDisabled = computed(() => {
 
 const emit = defineEmits<{
   (e: "addLocation", location: Location): void;
-  (e: "reorder"): void;
+  (e: "reorder", newIndex: number): void;
 }>();
 
 async function fetchLocationWeather() {
@@ -76,8 +76,8 @@ async function fetchLocationWeather() {
   }
 }
 
-function reorder() {
-  emit("reorder");
+function reorder(newIndex: number) {
+  emit("reorder", newIndex);
 }
 </script>
 
