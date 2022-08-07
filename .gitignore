@@ -24,3 +24,4 @@ pnpm-debug.log*
 *.sw?
 
 weather-data-example.json
+city.list.json

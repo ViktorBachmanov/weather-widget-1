@@ -2,6 +2,8 @@
   <div class="settings">
     <h3>Settings</h3>
 
+    <!-- <div style="min-height: 900px; min-width: 200px"></div> -->
+
     <div id="container" ref="container">
       <div
         v-for="(location, index) in locations"
@@ -58,7 +60,7 @@ const isDisabled = computed(() => {
 
 const emit = defineEmits<{
   (e: "addLocation", location: Location): void;
-  (e: "reorder", newIndex: number): void;
+  (e: "reorder", prevIndex: number, currentIndex: number): void;
 }>();
 
 async function fetchLocationWeather() {
@@ -86,11 +88,11 @@ function mouseDrag(index: number, event: MouseEvent) {
 
   event.preventDefault();
 
-  drag(container.value, index, event.clientY);
+  drag(container.value, index, event.clientY, reorder);
 }
 
-function reorder(newIndex: number) {
-  emit("reorder", newIndex);
+function reorder(prevIndex: number, currentIndex: number) {
+  emit("reorder", prevIndex, currentIndex);
 }
 </script>
 
