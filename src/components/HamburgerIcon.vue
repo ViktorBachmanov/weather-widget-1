@@ -1,8 +1,8 @@
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
+    width="24"
+    height="24"
     fill="currentColor"
     class="bi bi-list"
     viewBox="0 0 16 16"
@@ -13,117 +13,6 @@
     />
   </svg>
 </template>
-
-<script setup lang="ts">
-import { defineEmits, defineProps } from "vue";
-
-// interface Props {
-//   index: number;
-// }
-
-// const props = defineProps<Props>();
-
-// const emit = defineEmits<{
-//   (e: "reorder", newIndex: number): void;
-// }>();
-
-// function mouseDrag(e: any) {
-//   e.preventDefault();
-
-//   if (e.target.tagName !== "svg") {
-//     return;
-//   }
-
-//   const iconHtmlEl: HTMLElement = e.target;
-//   const locationEl: HTMLElement = iconHtmlEl.parentElement!;
-//   const containerEl: HTMLElement = locationEl.parentElement!;
-
-//   const locationElClone = locationEl.cloneNode(true) as HTMLElement;
-
-//   const locationWidth = locationEl.offsetWidth;
-
-//   locationElClone.style.width = locationWidth + "px";
-//   locationElClone.style.position = "absolute";
-//   locationElClone.style.zIndex = "1000";
-//   //const rect = locationElClone.getBoundingClientRect();
-//   moveAt(e.clientY);
-//   containerEl.append(locationElClone);
-//   //document.body.append(locationElClone);
-
-//   //containerEl.addEventListener("pointermove", onPointerMove);
-//   document.addEventListener("mousemove", onMouseMove);
-
-//   document.onmouseup = function () {
-//     document.removeEventListener("mousemove", onMouseMove);
-//     document.onmouseup = null;
-//   };
-
-//   function moveAt(clientY: number) {
-//     //locationElClone.style.left = x + "px";
-//     //const y = pageY - containerEl.getBoundingClientRect().top;
-//     const y = clientY - containerEl.getBoundingClientRect().top;
-//     locationElClone.style.top = y + "px";
-
-//     // if (y < 0) {
-//     //   emit("reorder");
-//     // }
-//   }
-
-//   function onMouseMove(event: any) {
-//     moveAt(event.clientY);
-//     // const indexAfterMove = getIndexAfterMove(props.index);
-//     // if(indexAfterMove !== props.index) {
-//     //   emit('reorder', indexAfterMove);
-//     // }
-//   }
-// }
-
-// function getIndexAfterMove(currentIndex: number): number {
-
-// }
-
-// function prepareDrag() {
-
-// }
-
-// function touchDrag(e: any) {
-//   e.preventDefault();
-
-//   if (e.target.tagName !== "svg") {
-//     return;
-//   }
-
-//   const iconHtmlEl: HTMLElement = e.target;
-//   const locationEl: HTMLElement = iconHtmlEl.parentElement!;
-//   const containerEl: HTMLElement = locationEl.parentElement!;
-
-//   const locationElClone = locationEl.cloneNode(true) as HTMLElement;
-
-//   locationElClone.style.position = "absolute";
-//   locationElClone.style.zIndex = "1000";
-//   const touch = e.targetTouches.item(0);
-
-//   moveAt(touch.pageY);
-//   containerEl.append(locationElClone);
-//   //document.body.append(locationElClone);
-
-//   document.addEventListener("touchmove", handleTouchMove);
-
-//   function moveAt(pageY: number) {
-//     //locationElClone.style.left = x + "px";
-//     const y = pageY - containerEl.getBoundingClientRect().top;
-//     locationElClone.style.top = y + "px";
-//   }
-
-//   function handleTouchMove(e: any) {
-//     e.preventDefault();
-
-//     const touch = e.targetTouches.item(0);
-
-//     moveAt(touch.pageY);
-//   }
-//}
-</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">

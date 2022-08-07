@@ -1,7 +1,6 @@
 export default function drag(
   container: HTMLElement,
   initialIndex: number,
-  //initialY: number,
   emit: (prevIndex: number, currentIndex: number) => void,
   event: MouseEvent | TouchEvent
 ) {
@@ -48,16 +47,6 @@ export default function drag(
       document.ontouchend = null;
     };
   }
-
-  // if(event.type === 'touchstart') {
-  //   event = event as TouchEvent;
-  //   const target = event.targetTouches.item(0)!.target;
-  //   target.ontouchend = function () {
-  //        locationClone.remove();
-  //        document.removeEventListener("touchmove", handleMove);
-  //        document.ontouchend = null;
-  //     };
-  // }
 
   let prevIndex = initialIndex;
 

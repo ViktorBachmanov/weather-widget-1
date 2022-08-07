@@ -9,6 +9,14 @@
       <span class="temp">{{ data.main.temp }}&deg;C</span>
     </div>
     Feels like {{ data.main.feels_like }}&deg;C
+    <div class="wind">
+      <img
+        alt="wind_dir"
+        src="@/assets/arrow_dark.svg"
+        :style="{ transform: `rotate(${data.wind.deg}deg)` }"
+      />
+      <span class="wind-speed"> {{ data.wind.speed }} m/s </span>
+    </div>
   </div>
 </template>
 
@@ -35,5 +43,13 @@ const props = defineProps<Props>();
 }
 .temp {
   font-size: x-large;
+}
+
+.wind {
+  display: flex;
+  align-items: center;
+}
+.wind-speed {
+  margin: 0 0.5em;
 }
 </style>
