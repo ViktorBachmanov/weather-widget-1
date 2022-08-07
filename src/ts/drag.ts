@@ -34,12 +34,16 @@ export default function drag(
   const coords = createCoordinatesArray(locations);
   console.log("coords: ", coords);
 
+  let prevY = initialY;
+
   function moveAt(event: MouseEvent) {
     moveLocationImageBeneathPointer(event.clientY);
 
-    const isPositiveMove = event.movementY >= 0 ? true : false;
-
     const localY = event.clientY - container.getBoundingClientRect().top;
+
+    //const isPositiveMove = event.movementY >= 0 ? true : false;
+    const isPositiveMove = localY >= prevY ? true : false;
+    prevY = localY;
 
     const currentIndex = evalCurrentIndex(
       localY,
@@ -68,21 +72,9 @@ function evalCurrentIndex(
   prevIndex: number,
   isPositiveMove: boolean
 ): number {
-  // if (prevIndex === 0 && !isPositiveMove) {
-  //   return 0;
-  // }
-
-  // if (prevIndex === coords.length - 1 && isPositiveMove) {
-  //   return coords.length - 1;
-  // }
-
   let index: number = prevIndex;
 
   if (isPositiveMove) {
-    // if(index === coords.length - 1) {
-    //   return index;
-    // }
-
     for (; index < coords.length - 1; index++) {
       if (y < coords[index + 1]) {
         return index;
@@ -91,10 +83,6 @@ function evalCurrentIndex(
 
     return index;
   } else {
-    // if(index === 0) {
-    //   return index;
-    // }
-
     for (; index > 0; index--) {
       if (y > coords[index - 1]) {
         return index;
