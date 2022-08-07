@@ -1,14 +1,16 @@
 <template>
   <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
   <!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" /> -->
-  <WeatherComponent v-if="mode === Mode.Weather" :locations="locations" />
-  <SettingsComponent
-    v-if="mode === Mode.Settings"
-    :locations="locations"
-    @add-location="addLocation"
-    @reorder="reorder"
-  />
-  <ModeToggle :mode="mode" @toggle-mode="toggleMode" />
+  <div class="container">
+    <WeatherComponent v-if="mode === Mode.Weather" :locations="locations" />
+    <SettingsComponent
+      v-if="mode === Mode.Settings"
+      :locations="locations"
+      @add-location="addLocation"
+      @reorder="reorder"
+    />
+    <ModeToggle :mode="mode" @toggle-mode="toggleMode" />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -70,6 +72,10 @@ weather-widget {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  // margin-top: 60px;
+}
+
+.container {
+  max-width: 20em;
 }
 </style>

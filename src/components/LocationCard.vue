@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="card">
     <h4>{{ data.name }}</h4>
     <div class="row">
       <img
@@ -42,14 +42,18 @@ const props = defineProps<Props>();
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.container {
+.card {
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  margin: 1em 0;
+  padding: 1em;
 }
 .row {
   display: flex;
   align-items: center;
+  margin: 0.25em 0;
 }
 .param {
   display: flex;
@@ -60,6 +64,10 @@ const props = defineProps<Props>();
 }
 .wind {
   margin-right: 1em;
+}
+
+.wind img {
+  opacity: 0.62;
 }
 
 .wind-speed {
