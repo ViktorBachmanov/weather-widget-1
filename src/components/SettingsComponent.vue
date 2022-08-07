@@ -11,7 +11,10 @@
         class="location"
       >
         <!-- <img src="../assets/list.svg" alt="hamburger icon" /> -->
-        <HamburgerIcon @mousedown="mouseDrag(index, $event)" />
+        <HamburgerIcon
+          @mousedown="drag(container!, index, reorder, $event)"
+          @touchstart="drag(container!, index, reorder, $event)"
+        />
         {{ location.data.name }}
       </div>
     </div>
@@ -81,15 +84,27 @@ async function fetchLocationWeather() {
   }
 }
 
-function mouseDrag(index: number, event: MouseEvent) {
-  if (!container.value) {
-    return;
-  }
+// function mouseDrag(index: number, event: MouseEvent) {
+//   if (!container.value) {
+//     return;
+//   }
 
-  event.preventDefault();
+//   event.preventDefault();
 
-  drag(container.value, index, event.clientY, reorder);
-}
+//   drag(container.value, index, event.clientY, reorder);
+// }
+
+// function touchDrag(index: number, event: TouchEvent) {
+//   if (!container.value) {
+//     return;
+//   }
+
+//   event.preventDefault();
+
+//   const touch = event.targetTouches.item(0)!;
+
+//   drag(container.value, index, touch.clientY, reorder);
+// }
 
 function reorder(prevIndex: number, currentIndex: number) {
   emit("reorder", prevIndex, currentIndex);

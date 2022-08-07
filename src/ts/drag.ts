@@ -1,9 +1,12 @@
 export default function drag(
   container: HTMLElement,
   initialIndex: number,
-  initialY: number,
-  emit: (prevIndex: number, currentIndex: number) => void
+  //initialY: number,
+  emit: (prevIndex: number, currentIndex: number) => void,
+  event: MouseEvent | TouchEvent
 ) {
+  event.preventDefault();
+
   const locations = container.querySelectorAll(".location");
   const location = locations.item(initialIndex) as HTMLElement;
 
@@ -11,23 +14,50 @@ export default function drag(
 
   const locationWidth = location.offsetWidth;
 
+  const initialY = getEventY(event);
+
   locationClone.style.width = locationWidth + "px";
   locationClone.style.position = "absolute";
   locationClone.style.zIndex = "1000";
-  moveLocationImageBeneathPointer(initialY);
+  moveLocationImageBeneathPointer(evalLocalY(initialY));
   container.append(locationClone);
 
-  const handleMouseMove = (event: MouseEvent) => {
-    moveAt(event);
+  const handleMove = (event: MouseEvent | TouchEvent) => {
+    const y = evalLocalY(getEventY(event));
+
+    moveAt(y);
   };
 
-  document.addEventListener("mousemove", handleMouseMove);
+  if (event.type === "mousedown") {
+    document.addEventListener("mousemove", handleMove);
 
-  document.onmouseup = function () {
-    locationClone.remove();
-    document.removeEventListener("mousemove", handleMouseMove);
-    document.onmouseup = null;
-  };
+    document.onmouseup = function () {
+      console.log("onmouseup");
+      locationClone.remove();
+      document.removeEventListener("mousemove", handleMove);
+      document.onmouseup = null;
+    };
+  } else {
+    document.addEventListener("touchmove", handleMove);
+
+    document.ontouchend = function () {
+      console.log("ontouchend");
+
+      locationClone.remove();
+      document.removeEventListener("touchmove", handleMove);
+      document.ontouchend = null;
+    };
+  }
+
+  // if(event.type === 'touchstart') {
+  //   event = event as TouchEvent;
+  //   const target = event.targetTouches.item(0)!.target;
+  //   target.ontouchend = function () {
+  //        locationClone.remove();
+  //        document.removeEventListener("touchmove", handleMove);
+  //        document.ontouchend = null;
+  //     };
+  // }
 
   let prevIndex = initialIndex;
 
@@ -36,17 +66,14 @@ export default function drag(
 
   let prevY = initialY;
 
-  function moveAt(event: MouseEvent) {
-    moveLocationImageBeneathPointer(event.clientY);
+  function moveAt(currentY: number) {
+    moveLocationImageBeneathPointer(currentY);
 
-    const localY = event.clientY - container.getBoundingClientRect().top;
-
-    //const isPositiveMove = event.movementY >= 0 ? true : false;
-    const isPositiveMove = localY >= prevY ? true : false;
-    prevY = localY;
+    const isPositiveMove = currentY >= prevY ? true : false;
+    prevY = currentY;
 
     const currentIndex = evalCurrentIndex(
-      localY,
+      currentY,
       coords,
       prevIndex,
       isPositiveMove
@@ -58,9 +85,31 @@ export default function drag(
     }
   }
 
-  function moveLocationImageBeneathPointer(clientY: number) {
-    const y = clientY - container.getBoundingClientRect().top;
+  function moveLocationImageBeneathPointer(y: number) {
     locationClone.style.top = y + "px";
+  }
+
+  function evalLocalY(clientY: number) {
+    return clientY - container.getBoundingClientRect().top;
+  }
+
+  function getEventY(event: MouseEvent | TouchEvent) {
+    switch (event.type) {
+      case "mousedown":
+      case "mousemove":
+        //console.log("mouse");
+        event = event as MouseEvent;
+        return event.clientY;
+      case "touchstart":
+      case "touchmove":
+        //console.log("touch");
+        event = event as TouchEvent;
+        return event.targetTouches.item(0)!.clientY;
+      default:
+        // console.log("event.type: ", event.type);
+        // console.log("default");
+        return 0;
+    }
   }
 }
 
