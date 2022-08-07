@@ -15,9 +15,12 @@ export default function drag(
 
   const initialY = getEventY(event);
 
+  const offset = evalLocalY(initialY) - location.offsetTop;
+
   locationClone.style.width = locationWidth + "px";
   locationClone.style.position = "absolute";
   locationClone.style.zIndex = "1000";
+  locationClone.style.opacity = "0.5";
   moveLocationImageBeneathPointer(evalLocalY(initialY));
   container.append(locationClone);
 
@@ -75,7 +78,7 @@ export default function drag(
   }
 
   function moveLocationImageBeneathPointer(y: number) {
-    locationClone.style.top = y + "px";
+    locationClone.style.top = y - offset + "px";
   }
 
   function evalLocalY(clientY: number) {
