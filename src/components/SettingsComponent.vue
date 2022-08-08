@@ -33,7 +33,9 @@
     </label>
 
     <button :disabled="isDisabled" @click="addLocation">Add</button>
-    <!-- <button :disabled="isDisabled">Add</button> -->
+
+    <div class="error">{{ error }}</div>
+
     <p></p>
     <button @click="emit('reset')">Reset</button>
   </div>
@@ -58,11 +60,18 @@ const props = defineProps<Props>();
 
 const city = ref("");
 
+const error = ref(" ");
+
 const container = ref<HTMLElement | null>(null);
 
 const isAlreadyExist = computed(() => {
   return props.locations.some((location) => {
-    return location.data.name.toUpperCase() === city.value.toUpperCase();
+    const result =
+      location.data.name.toUpperCase() === city.value.toUpperCase();
+    if (result) {
+      //error.value = "This city already presented";
+      setError("The city is already presented");
+    }
   });
 });
 
@@ -99,7 +108,9 @@ async function addLocation() {
     emit("addLocation", location);
     city.value = "";
   } else if (response.status === 404) {
-    console.log("Not found");
+    //console.log("Not found");
+    //error.value = `City "${city.value}" not found`;
+    setError(`City "${city.value}" not found`);
   }
 }
 
@@ -109,6 +120,11 @@ function reorder(prevIndex: number, currentIndex: number) {
 
 function remove(index: number) {
   emit("remove", index);
+}
+
+function setError(message: string) {
+  error.value = message;
+  setTimeout(() => (error.value = " "), 3000);
 }
 </script>
 
@@ -140,5 +156,9 @@ function remove(index: number) {
   margin-left: auto;
   cursor: pointer;
   opacity: 0.62;
+}
+
+.error {
+  color: red;
 }
 </style>
