@@ -18,7 +18,7 @@
         {{ location.data.name }}
         <img
           alt="trash"
-          src="@/assets/icons8-trash-24.png"
+          src="@/assets/icons8-trash-24-1.png"
           class="trash"
           @click="remove(index)"
         />
@@ -126,10 +126,10 @@ function remove(index: number) {
   box-sizing: border-box;
 }
 .trash {
-  width: 1.25em;
+  width: 1.5em;
   margin: 0.5em;
   margin-left: auto;
   cursor: pointer;
-  opacity: 0.75;
+  opacity: 0.62;
 }
 </style>
