@@ -32,7 +32,7 @@
       <input v-model="city" />
     </label>
 
-    <button :disabled="isDisabled" @click="fetchLocationWeather">Add</button>
+    <button :disabled="isDisabled" @click="addLocation">Add</button>
     <!-- <button :disabled="isDisabled">Add</button> -->
     <p></p>
     <button @click="emit('reset')">Reset</button>
@@ -43,6 +43,7 @@
 import { ref, defineEmits, defineProps, computed } from "vue";
 
 import { Location } from "../ts/types";
+import { fetchLocationWeather } from "../ts/util";
 import drag from "../ts/drag";
 
 import HamburgerIcon from "./HamburgerIcon.vue";
@@ -76,10 +77,18 @@ const emit = defineEmits<{
   (e: "reset"): void;
 }>();
 
-async function fetchLocationWeather() {
-  const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${process.env.VUE_APP_API_KEY}&units=metric`
-  );
+async function addLocation() {
+  // const response = await fetch(
+  //   `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${process.env.VUE_APP_API_KEY}&units=metric`
+  // );
+
+  let response;
+  try {
+    response = await fetchLocationWeather(city.value);
+  } catch (error) {
+    console.error("There has been a problem with your fetch operation:", error);
+    return;
+  }
 
   if (response.ok) {
     const locationData = await response.json();

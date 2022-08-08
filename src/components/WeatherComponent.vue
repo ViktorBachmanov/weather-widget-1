@@ -26,14 +26,6 @@ interface Props {
 const props = defineProps<Props>();
 
 console.log("setup Weather component");
-
-// function updateWeatherData() {
-//   locations.forEach((location) => {
-//     if (isWeatherDataOutdated(location.fetchedAt)) {
-//       //fetch()
-//     }
-//   });
-// }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

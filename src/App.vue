@@ -24,7 +24,7 @@ import SettingsComponent from "./components/SettingsComponent.vue";
 import ModeToggle from "./components/ModeToggle.vue";
 
 import { Mode, Location } from "./ts/types";
-import { isWeatherDataOutdated } from "./ts/util";
+import { updateWeatherData } from "./ts/util";
 
 console.log("setup App");
 
@@ -57,12 +57,6 @@ const initialLocations: Location[] = persistedData
 
 const locations: Location[] = reactive([...initialLocations]);
 
-// const isInitialOpening = computed(() => {
-//   const localConfig = localStorage.getItem(LOCAL_CONFIG);
-//   console.log("localConfig: ", localConfig);
-//   return localConfig === null;
-// });
-
 function isInitialOpening() {
   const localConfig = localStorage.getItem(LOCAL_CONFIG);
   console.log("localConfig: ", localConfig);
@@ -73,8 +67,19 @@ console.log("isInitialOpening: ", isInitialOpening());
 
 const mode: Ref<Mode> = ref(isInitialOpening() ? Mode.Settings : Mode.Weather);
 
+updateWeatherData(locations);
+
 function toggleMode() {
-  mode.value = mode.value === Mode.Weather ? Mode.Settings : Mode.Weather;
+  //mode.value = mode.value === Mode.Weather ? Mode.Settings : Mode.Weather;
+  switch (mode.value) {
+    case Mode.Weather:
+      mode.value = Mode.Settings;
+      break;
+    case Mode.Settings:
+      mode.value = Mode.Weather;
+      updateWeatherData(locations);
+      break;
+  }
 }
 
 function addLocation(location: Location) {
