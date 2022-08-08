@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, computed } from "vue";
+import { reactive, ref, computed, onErrorCaptured } from "vue";
 import type { Ref } from "vue";
 
 import WeatherComponent from "./components/WeatherComponent.vue";
@@ -26,6 +26,15 @@ import { isWeatherDataOutdated } from "./ts/util";
 console.log("setup App");
 
 const LOCAL_CONFIG = "weather_widget_vb";
+
+onErrorCaptured(() => {
+  emergencyReset();
+});
+
+function emergencyReset() {
+  locations.splice(0);
+  localStorage.removeItem(LOCAL_CONFIG);
+}
 
 addEventListener("beforeunload", () => {
   localStorage.setItem(LOCAL_CONFIG, JSON.stringify(locations));
