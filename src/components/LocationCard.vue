@@ -13,7 +13,7 @@
       <span class="param wind">
         <img
           alt="wind_dir"
-          src="@/assets/arrow_dark.svg"
+          src="@/assets/arrow_dark.png"
           :style="{ transform: `rotate(${data.wind.deg}deg)` }"
         />
         <span class="wind-speed"> {{ data.wind.speed }} m/s </span>
@@ -67,7 +67,7 @@ const props = defineProps<Props>();
 }
 
 .wind img {
-  opacity: 0.62;
+  //opacity: 0.75;
 }
 
 .wind-speed {
