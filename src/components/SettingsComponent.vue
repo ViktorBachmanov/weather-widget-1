@@ -1,5 +1,5 @@
 <template>
-  <div class="settings">
+  <div>
     <h3>Settings</h3>
 
     <!-- <div style="min-height: 900px; min-width: 200px"></div> -->
@@ -102,11 +102,11 @@ function remove(index: number) {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.settings {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+// .settings {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+// }
 #container {
   min-width: 12em;
   max-width: 15em;

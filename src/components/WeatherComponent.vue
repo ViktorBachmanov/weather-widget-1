@@ -1,14 +1,14 @@
 <template>
-  <div>
+  <div class="weather">
     <h3>Weather</h3>
 
-    <div>
-      <LocationCard
-        v-for="location in locations"
-        :key="location.data.id"
-        :data="location.data"
-      />
-    </div>
+    <!-- <div> -->
+    <LocationCard
+      v-for="location in locations"
+      :key="location.data.id"
+      :data="location.data"
+    />
+    <!-- </div> -->
   </div>
 </template>
 
@@ -37,4 +37,8 @@ console.log("setup Weather component");
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.weather {
+  width: 100%;
+}
+</style>
