@@ -13,19 +13,34 @@ export default function drag(
 
   const locationWidth = location.offsetWidth;
 
-  const initialY = getEventY(event);
+  let initialY = getEventY(event);
+
+  console.log("location.offsetTop: ", location.offsetTop);
+
+  const locationY =
+    location.getBoundingClientRect().top -
+    container.getBoundingClientRect().top;
+
+  console.log("locationY: ", locationY);
 
   const offset = evalLocalY(initialY) - location.offsetTop;
+
+  initialY -= offset;
+
+  console.log("offset: ", offset);
 
   locationClone.style.width = locationWidth + "px";
   locationClone.style.position = "absolute";
   locationClone.style.zIndex = "1000";
   locationClone.style.opacity = "0.5";
+  locationClone.style.margin = "0";
   moveLocationImageBeneathPointer(evalLocalY(initialY));
   container.append(locationClone);
 
   const handleMove = (event: MouseEvent | TouchEvent) => {
-    const y = evalLocalY(getEventY(event));
+    const y = evalLocalY(getEventY(event)) - offset;
+
+    //console.log("y - offset = ", y);
 
     moveAt(y);
   };
@@ -78,7 +93,8 @@ export default function drag(
   }
 
   function moveLocationImageBeneathPointer(y: number) {
-    locationClone.style.top = y - offset + "px";
+    //locationClone.style.top = y - offset + "px";
+    locationClone.style.top = y + "px";
   }
 
   function evalLocalY(clientY: number) {
