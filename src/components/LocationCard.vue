@@ -8,7 +8,8 @@
       />
       <span class="temp">{{ data.main.temp }}&deg;C</span>
     </div>
-    Feels like {{ data.main.feels_like }}&deg;C
+    Feels like {{ data.main.feels_like }}&deg;C,
+    {{ data.weather[0].description }}
     <div class="row">
       <span class="param wind">
         <img
@@ -26,6 +27,12 @@
         />
         <span> {{ data.main.pressure }} hPa </span>
       </span>
+    </div>
+    <div class="row">
+      <span class="param humidity">Humidity: {{ data.main.humidity }}%</span>
+      <span class="param"
+        >Visibility: {{ (data.visibility * 0.001).toFixed(1) }} km</span
+      >
     </div>
   </div>
 </template>
@@ -72,5 +79,9 @@ const props = defineProps<Props>();
 
 .wind-speed {
   margin: 0 0.5em;
+}
+
+.humidity {
+  margin-right: 1em;
 }
 </style>
