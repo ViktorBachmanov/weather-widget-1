@@ -34,6 +34,8 @@
 
     <button :disabled="isDisabled" @click="fetchLocationWeather">Add</button>
     <!-- <button :disabled="isDisabled">Add</button> -->
+    <p></p>
+    <button @click="emit('reset')">Reset</button>
   </div>
 </template>
 
@@ -71,6 +73,7 @@ const emit = defineEmits<{
   (e: "addLocation", location: Location): void;
   (e: "reorder", prevIndex: number, currentIndex: number): void;
   (e: "remove", index: number): void;
+  (e: "reset"): void;
 }>();
 
 async function fetchLocationWeather() {

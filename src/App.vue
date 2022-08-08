@@ -9,6 +9,7 @@
       @add-location="addLocation"
       @reorder="reorder"
       @remove="remove"
+      @reset="emergencyReset"
     />
     <ModeToggle :mode="mode" @toggle-mode="toggleMode" />
   </div>
@@ -39,8 +40,14 @@ function emergencyReset() {
 }
 
 addEventListener("beforeunload", () => {
-  localStorage.setItem(LOCAL_CONFIG, JSON.stringify(locations));
+  if (locations.length) {
+    saveConfig();
+  }
 });
+
+function saveConfig() {
+  localStorage.setItem(LOCAL_CONFIG, JSON.stringify(locations));
+}
 
 const persistedData = localStorage.getItem(LOCAL_CONFIG);
 
@@ -50,13 +57,21 @@ const initialLocations: Location[] = persistedData
 
 const locations: Location[] = reactive([...initialLocations]);
 
-const isInitialOpening = computed(
-  () => localStorage.getItem(LOCAL_CONFIG) === null
-);
+// const isInitialOpening = computed(() => {
+//   const localConfig = localStorage.getItem(LOCAL_CONFIG);
+//   console.log("localConfig: ", localConfig);
+//   return localConfig === null;
+// });
 
-const mode: Ref<Mode> = ref(
-  isInitialOpening.value ? Mode.Settings : Mode.Weather
-);
+function isInitialOpening() {
+  const localConfig = localStorage.getItem(LOCAL_CONFIG);
+  console.log("localConfig: ", localConfig);
+  return localConfig === null;
+}
+
+console.log("isInitialOpening: ", isInitialOpening());
+
+const mode: Ref<Mode> = ref(isInitialOpening() ? Mode.Settings : Mode.Weather);
 
 function toggleMode() {
   mode.value = mode.value === Mode.Weather ? Mode.Settings : Mode.Weather;
@@ -64,6 +79,11 @@ function toggleMode() {
 
 function addLocation(location: Location) {
   locations.push(location);
+
+  if (isInitialOpening()) {
+    mode.value = Mode.Weather;
+    saveConfig();
+  }
 }
 
 function reorder(prevIndex: number, currentIndex: number) {
