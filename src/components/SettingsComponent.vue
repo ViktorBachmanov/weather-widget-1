@@ -16,6 +16,12 @@
           @touchstart="drag(container!, index, reorder, $event)"
         />
         {{ location.data.name }}
+        <img
+          alt="trash"
+          src="@/assets/icons8-trash-24.png"
+          class="trash"
+          @click="remove(index)"
+        />
       </div>
     </div>
 
@@ -64,6 +70,7 @@ const isDisabled = computed(() => {
 const emit = defineEmits<{
   (e: "addLocation", location: Location): void;
   (e: "reorder", prevIndex: number, currentIndex: number): void;
+  (e: "remove", index: number): void;
 }>();
 
 async function fetchLocationWeather() {
@@ -84,30 +91,12 @@ async function fetchLocationWeather() {
   }
 }
 
-// function mouseDrag(index: number, event: MouseEvent) {
-//   if (!container.value) {
-//     return;
-//   }
-
-//   event.preventDefault();
-
-//   drag(container.value, index, event.clientY, reorder);
-// }
-
-// function touchDrag(index: number, event: TouchEvent) {
-//   if (!container.value) {
-//     return;
-//   }
-
-//   event.preventDefault();
-
-//   const touch = event.targetTouches.item(0)!;
-
-//   drag(container.value, index, touch.clientY, reorder);
-// }
-
 function reorder(prevIndex: number, currentIndex: number) {
   emit("reorder", prevIndex, currentIndex);
+}
+
+function remove(index: number) {
+  emit("remove", index);
 }
 </script>
 
@@ -129,7 +118,15 @@ function reorder(prevIndex: number, currentIndex: number) {
   background-color: #e5e7eb;
   margin: 0.5em 0;
   display: flex;
+  align-items: center;
   width: 100%;
   box-sizing: border-box;
+}
+.trash {
+  width: 1.25em;
+  margin: 0.5em;
+  margin-left: auto;
+  cursor: pointer;
+  opacity: 0.75;
 }
 </style>

@@ -7,6 +7,7 @@
     :locations="locations"
     @add-location="addLocation"
     @reorder="reorder"
+    @remove="remove"
   />
   <ModeToggle :mode="mode" @toggle-mode="toggleMode" />
 </template>
@@ -59,6 +60,10 @@ function reorder(prevIndex: number, currentIndex: number) {
   const movedLocation = locations[prevIndex];
   locations.splice(prevIndex, 1);
   locations.splice(currentIndex, 0, movedLocation);
+}
+
+function remove(index: number) {
+  locations.splice(index, 1);
 }
 </script>
 
