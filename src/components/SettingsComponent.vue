@@ -33,7 +33,7 @@
         <input
           v-model="city"
           @keyup.enter="addLocation"
-          placeholder="enter city"
+          placeholder="Enter city"
         />
       </label>
 
@@ -48,7 +48,6 @@
 
     <div class="error">{{ error }}</div>
 
-    <p></p>
     <button @click="emit('reset')">Reset</button>
   </div>
 </template>
@@ -191,6 +190,8 @@ function setError(message: string) {
 }
 
 .error {
-  color: red;
+  color: rgb(156, 32, 32);
+  padding: 0.25em;
+  min-height: 20px;
 }
 </style>
