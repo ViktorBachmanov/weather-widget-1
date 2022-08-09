@@ -4,7 +4,7 @@
 
     <!-- <div style="min-height: 900px; min-width: 200px"></div> -->
 
-    <div id="container" ref="container">
+    <div class="container" ref="container">
       <div
         v-for="(location, index) in locations"
         :key="location.data.id"
@@ -152,7 +152,7 @@ function setError(message: string) {
 //   flex-direction: column;
 //   align-items: center;
 // }
-#container {
+.container {
   min-width: 12em;
   max-width: 15em;
   position: relative;
