@@ -35,7 +35,7 @@
     <p></p>
 
     <div id="add-location">
-      <label style="text-align: left">
+      <label style="text-align: left; font-size: 110%">
         <div style="margin-bottom: 0.25em">Add Location</div>
         <input
           v-model="city"
@@ -65,8 +65,6 @@ import { ref, defineEmits, defineProps, computed, watch } from "vue";
 import { Location } from "../ts/types";
 import { fetchLocationWeather } from "../ts/util";
 import drag from "../ts/drag";
-
-import HamburgerIcon from "./HamburgerIcon.vue";
 
 console.log("setup Settings component");
 
@@ -188,6 +186,20 @@ function setError(message: string) {
 #add-location {
   display: flex;
   align-items: flex-end;
+
+  input {
+    font-size: 100%;
+    outline: 0;
+    border-radius: 0.2em;
+    border: 1px solid #f0abfc;
+
+    $highlight: #c6538c;
+
+    &:focus {
+      border-color: $highlight;
+      box-shadow: 0 0 2px 2px $highlight;
+    }
+  }
 }
 
 #enter {
