@@ -200,8 +200,9 @@ function setError(message: string) {
 }
 
 .error {
-  color: rgb(156, 32, 32);
+  color: rgb(196, 30, 30);
   padding: 0.25em;
-  min-height: 20px;
+  //min-height: 25px;
+  min-height: 2em;
 }
 </style>
