@@ -53,7 +53,8 @@ const props = defineProps<Props>();
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1),
+    0 -2px 3px -2px rgb(0 0 0 / 0.1);
   margin: 1em 0;
   padding: 1em;
 }
