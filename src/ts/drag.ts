@@ -48,22 +48,27 @@ export default function drag(
   if (event.type === "mousedown") {
     document.addEventListener("mousemove", handleMove);
 
-    document.onmouseup = function () {
-      console.log("onmouseup");
-      locationClone.remove();
-      document.removeEventListener("mousemove", handleMove);
-      document.onmouseup = null;
-    };
+    document.addEventListener(
+      "mouseup",
+      () => {
+        console.log("mouseup");
+        locationClone.remove();
+        document.removeEventListener("mousemove", handleMove);
+      },
+      { once: true }
+    );
   } else {
     document.addEventListener("touchmove", handleMove);
 
-    document.ontouchend = function () {
-      console.log("ontouchend");
-
-      locationClone.remove();
-      document.removeEventListener("touchmove", handleMove);
-      document.ontouchend = null;
-    };
+    document.addEventListener(
+      "touchend",
+      () => {
+        console.log("touchend");
+        locationClone.remove();
+        document.removeEventListener("touchmove", handleMove);
+      },
+      { once: true }
+    );
   }
 
   let prevIndex = initialIndex;
