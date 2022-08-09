@@ -14,8 +14,8 @@
         <img
           src="../assets/icons8-menu-24.png"
           alt="hamburger"
-          @mousedown="new MouseDrag(container!, index, reorder, $event)"
-          @touchstart="new TouchDrag(container!, index, reorder, $event)"
+          @mousedown="dragMouse(index, $event)"
+          @touchstart="dragTouch(index, $event)"
           class="hamburger"
         />
         <!-- <HamburgerIcon
@@ -148,6 +148,14 @@ function setError(message: string) {
     error.value = "";
     unwatch();
   });
+}
+
+function dragMouse(index: number, event: MouseEvent) {
+  new MouseDrag(container.value!, index, reorder, event);
+}
+
+function dragTouch(index: number, event: TouchEvent) {
+  new TouchDrag(container.value!, index, reorder, event);
 }
 </script>
 
