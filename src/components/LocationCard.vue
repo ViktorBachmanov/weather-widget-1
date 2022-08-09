@@ -74,10 +74,6 @@ const props = defineProps<Props>();
   margin-right: 1em;
 }
 
-.wind img {
-  //opacity: 0.75;
-}
-
 .wind-speed {
   margin: 0 0.5em;
 }

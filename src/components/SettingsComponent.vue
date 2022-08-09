@@ -29,7 +29,7 @@
 
     <label>
       <div>Add Location</div>
-      <input v-model="city" />
+      <input v-model="city" @keyup.enter="addLocation" />
     </label>
 
     <button :disabled="isDisabled" @click="addLocation">Add</button>
@@ -72,6 +72,7 @@ const isAlreadyExist = computed(() => {
       //error.value = "This city already presented";
       setError("The city is already presented");
     }
+    return result;
   });
 });
 
@@ -87,9 +88,10 @@ const emit = defineEmits<{
 }>();
 
 async function addLocation() {
-  // const response = await fetch(
-  //   `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${process.env.VUE_APP_API_KEY}&units=metric`
-  // );
+  if (isDisabled.value) {
+    console.log("isDisabled");
+    return;
+  }
 
   let response;
   try {
