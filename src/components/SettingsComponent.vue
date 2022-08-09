@@ -11,10 +11,17 @@
         class="location"
       >
         <!-- <img src="../assets/list.svg" alt="hamburger icon" /> -->
-        <HamburgerIcon
+        <img
+          src="../assets/icons8-menu-24.png"
+          alt="hamburger"
           @mousedown="drag(container!, index, reorder, $event)"
           @touchstart="drag(container!, index, reorder, $event)"
+          class="hamburger"
         />
+        <!-- <HamburgerIcon
+          @mousedown="drag(container!, index, reorder, $event)"
+          @touchstart="drag(container!, index, reorder, $event)"
+        /> -->
         {{ location.data.name }}
         <img
           alt="trash"
@@ -166,6 +173,10 @@ function setError(message: string) {
   align-items: center;
   width: 100%;
   box-sizing: border-box;
+}
+.hamburger {
+  cursor: grab;
+  padding: 0.5em;
 }
 .trash {
   width: 1.5em;
