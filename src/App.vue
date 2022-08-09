@@ -113,8 +113,16 @@ weather-widget {
   color: #2c3e50;
   // margin-top: 60px;
 
-  max-width: 20em;
+  //width: 20em;
   display: block;
+
+  @media (max-width: 360px) {
+    width: 100%;
+  }
+  @media (min-width: 361px) {
+    min-width: 20em;
+    max-width: 20em;
+  }
 }
 
 .container {

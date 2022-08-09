@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="settings">
     <h3>Settings</h3>
 
     <!-- <div style="min-height: 900px; min-width: 200px"></div> -->
@@ -154,16 +154,14 @@ function setError(message: string) {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-// .settings {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-// }
+.settings {
+  width: 100%;
+}
 .container {
   min-width: 12em;
-  max-width: 15em;
+  //max-width: 15em;
   position: relative;
-  border: 1px solid blue;
+  //border: 1px solid blue;
   padding: 1em 0.5em;
 }
 .location {

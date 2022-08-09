@@ -44,5 +44,6 @@ const emit = defineEmits(["toggleMode"]);
   top: 0;
   right: 0;
   cursor: pointer;
+  padding: 0.5em;
 }
 </style>
