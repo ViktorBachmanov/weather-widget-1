@@ -104,6 +104,9 @@ function remove(index: number) {
 </script>
 
 <style lang="scss">
+* {
+  box-sizing: border-box;
+}
 // #app {
 weather-widget {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -130,5 +133,15 @@ weather-widget {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+h3 {
+  margin-top: 0;
+  margin-left: 1em;
+}
+
+h4 {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 </style>

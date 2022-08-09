@@ -36,7 +36,7 @@
 
     <div id="add-location">
       <label style="text-align: left">
-        <div>Add Location</div>
+        <div style="margin-bottom: 0.25em">Add Location</div>
         <input
           v-model="city"
           @keyup.enter="addLocation"
@@ -156,13 +156,14 @@ function setError(message: string) {
 <style scoped lang="scss">
 .settings {
   width: 100%;
+  padding: 1em;
 }
 .container {
   min-width: 12em;
   //max-width: 15em;
   position: relative;
   //border: 1px solid blue;
-  padding: 1em 0.5em;
+  // padding: 1em 0.5em;
 }
 .location {
   background-color: #e5e7eb;

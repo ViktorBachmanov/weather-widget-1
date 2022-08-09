@@ -32,5 +32,6 @@ console.log("setup Weather component");
 <style scoped lang="scss">
 .weather {
   width: 100%;
+  padding: 1em;
 }
 </style>
