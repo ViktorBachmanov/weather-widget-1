@@ -42,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineEmits, defineProps, computed } from "vue";
+import { ref, defineEmits, defineProps, computed, watch } from "vue";
 
 import { Location } from "../ts/types";
 import { fetchLocationWeather } from "../ts/util";
@@ -60,7 +60,7 @@ const props = defineProps<Props>();
 
 const city = ref("");
 
-const error = ref(" ");
+const error = ref("");
 
 const container = ref<HTMLElement | null>(null);
 
@@ -124,7 +124,11 @@ function remove(index: number) {
 
 function setError(message: string) {
   error.value = message;
-  setTimeout(() => (error.value = " "), 3000);
+  //setTimeout(() => (error.value = " "), 3000);
+  const unwatch = watch(city, () => {
+    error.value = "";
+    unwatch();
+  });
 }
 </script>
 
