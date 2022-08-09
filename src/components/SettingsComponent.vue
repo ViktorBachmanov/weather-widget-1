@@ -27,12 +27,24 @@
 
     <p></p>
 
-    <label>
-      <div>Add Location</div>
-      <input v-model="city" @keyup.enter="addLocation" />
-    </label>
+    <div id="add-location">
+      <label style="text-align: left">
+        <div>Add Location</div>
+        <input
+          v-model="city"
+          @keyup.enter="addLocation"
+          placeholder="enter city"
+        />
+      </label>
 
-    <button :disabled="isDisabled" @click="addLocation">Add</button>
+      <img
+        alt="enter"
+        src="@/assets/icons8-enter-key-30.png"
+        @click="addLocation"
+        id="enter"
+        :class="{ disabled: isDisabled }"
+      />
+    </div>
 
     <div class="error">{{ error }}</div>
 
@@ -162,6 +174,20 @@ function setError(message: string) {
   margin-left: auto;
   cursor: pointer;
   opacity: 0.62;
+}
+
+#add-location {
+  display: flex;
+  align-items: flex-end;
+}
+
+#enter {
+  margin-left: 0.25em;
+  cursor: pointer;
+
+  &.disabled {
+    opacity: 0.5;
+  }
 }
 
 .error {
