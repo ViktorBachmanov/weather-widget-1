@@ -111,7 +111,6 @@ export class MouseDrag extends Drag {
     document.addEventListener(
       "mouseup",
       () => {
-        console.log("mouseup");
         this.locationClone.remove();
         document.removeEventListener("mousemove", this.handleMove);
         document.body.style.removeProperty("cursor");
@@ -134,7 +133,6 @@ export class TouchDrag extends Drag {
     document.addEventListener(
       "touchend",
       () => {
-        console.log("touchend");
         this.locationClone.remove();
         document.removeEventListener("touchmove", this.handleMove);
         document.body.style.removeProperty("cursor");

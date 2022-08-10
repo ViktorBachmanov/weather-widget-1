@@ -1,5 +1,4 @@
 <template>
-  <!-- <button @click="emit('toggleMode')">{{ nextMode }}</button> -->
   <div @click="emit('toggleMode')" class="button">
     <img
       alt="settings"
@@ -16,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps, defineEmits } from "vue";
+import { defineProps, defineEmits } from "vue";
 
 import { Mode } from "../ts/types";
 
@@ -26,15 +25,7 @@ interface Props {
 
 const props = defineProps<Props>();
 
-// const nextMode = computed(() =>
-//   props.mode === Mode.Settings ? "Weather" : "Settings"
-// );
-
 const emit = defineEmits(["toggleMode"]);
-
-// function toggle() {
-//   emit('toggleMode');
-// }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

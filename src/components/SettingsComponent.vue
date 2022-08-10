@@ -2,15 +2,12 @@
   <div class="settings">
     <h3>Settings</h3>
 
-    <!-- <div style="min-height: 900px; min-width: 200px"></div> -->
-
     <div class="container" ref="container">
       <div
         v-for="(location, index) in locations"
         :key="location.data.id"
         class="location"
       >
-        <!-- <img src="../assets/list.svg" alt="hamburger icon" /> -->
         <img
           src="../assets/icons8-menu-24.png"
           alt="hamburger"
@@ -18,10 +15,7 @@
           @touchstart="dragTouch(index, $event)"
           class="hamburger"
         />
-        <!-- <HamburgerIcon
-          @mousedown="drag(container!, index, reorder, $event)"
-          @touchstart="drag(container!, index, reorder, $event)"
-        /> -->
+
         {{ location.data.name }}
         <img
           alt="trash"
@@ -64,10 +58,7 @@ import { ref, defineEmits, defineProps, computed, watch } from "vue";
 
 import { Location } from "../ts/types";
 import { fetchLocationWeather } from "../ts/util";
-//import drag from "../ts/drag";
 import { MouseDrag, TouchDrag } from "../ts/DragClass";
-
-console.log("setup Settings component");
 
 interface Props {
   locations: Location[];
@@ -86,7 +77,6 @@ const isAlreadyExist = computed(() => {
     const result =
       location.data.name.toUpperCase() === city.value.toUpperCase();
     if (result) {
-      //error.value = "This city already presented";
       setError("The city is present already in the list");
     }
     return result;
@@ -106,7 +96,6 @@ const emit = defineEmits<{
 
 async function addLocation() {
   if (isDisabled.value) {
-    console.log("isDisabled");
     return;
   }
 
@@ -127,8 +116,6 @@ async function addLocation() {
     emit("addLocation", location);
     city.value = "";
   } else if (response.status === 404) {
-    //console.log("Not found");
-    //error.value = `City "${city.value}" not found`;
     setError(`The city "${city.value}" is not found`);
   }
 }
@@ -143,7 +130,6 @@ function remove(index: number) {
 
 function setError(message: string) {
   error.value = message;
-  //setTimeout(() => (error.value = " "), 3000);
   const unwatch = watch(city, () => {
     error.value = "";
     unwatch();
@@ -167,10 +153,7 @@ function dragTouch(index: number, event: TouchEvent) {
 }
 .container {
   min-width: 12em;
-  //max-width: 15em;
   position: relative;
-  //border: 1px solid blue;
-  // padding: 1em 0.5em;
 }
 .location {
   background-color: #e5e7eb;
@@ -223,7 +206,6 @@ function dragTouch(index: number, event: TouchEvent) {
 .error {
   color: rgb(196, 30, 30);
   padding-top: 0.5em;
-  //min-height: 25px;
-  min-height: 2em;
+  min-height: 2.25em;
 }
 </style>

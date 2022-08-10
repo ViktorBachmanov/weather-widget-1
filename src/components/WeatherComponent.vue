@@ -2,13 +2,11 @@
   <div class="weather">
     <h3>Weather</h3>
 
-    <!-- <div> -->
     <LocationCard
       v-for="location in locations"
       :key="location.data.id"
       :data="location.data"
     />
-    <!-- </div> -->
   </div>
 </template>
 
@@ -24,8 +22,6 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-
-console.log("setup Weather component");
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

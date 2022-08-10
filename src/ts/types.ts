@@ -4,7 +4,6 @@ export enum Mode {
 }
 
 export interface Location {
-  //city: string;
   fetchedAt: number; // milliseconds
   data: any;
 }

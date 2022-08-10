@@ -18,78 +18,91 @@
         justify-content: center;
       }
       weather-widget {
-        /* float: right; */
         margin: 0 auto;
       }
       #description {
-        /* display: inline-block; */
         flex: 1 1 25%;
         padding: 1em;
-        font-size: 1.25em;
+        /* font-size: 1.25em; */
+        /* display: flex;
+        flex-direction: column;
+        align-items: center; */
       }
       p {
         text-indent: 1.5em;
       }
       .snippet {
-        margin-left: 2em;
+        /* margin-left: 2em; */
+        /* margin: 0 auto; */
         background-color: #e5e5e5;
         display: inline-block;
         padding: 0.5em;
+        text-align: left;
       }
       .drag {
         background-color: #e5e5e5;
-        padding: 0.33em;
+        padding-left: 0.33em;
+        padding-right: 0.33em;
       }
     </style>
   </head>
   <body>
     <noscript>
       <strong
-        >We're sorry but WeatherWidget doesn't work
-        properly without JavaScript enabled. Please enable it to
-        continue.</strong
+        >We're sorry but WeatherWidget doesn't work properly without JavaScript
+        enabled. Please enable it to continue.</strong
       >
     </noscript>
 
     <main>
       <div id="description">
-        <h1 style="text-align: center; margin-top: 0; font-size: 24px;">Weather Widget</h1>
+        <h1 style="text-align: center; margin-top: 0; font-size: 24px">
+          Weather Widget
+        </h1>
         <p>
-          This Application (Widget) shows the current weather in the specified cities
-           and is designed to operate in computers as well as in mobile devices.
-            To add the widget to website, it is necessary only to put the following snippet into the page:
+          This Application (Widget) shows the current weather in the specified
+          cities and is designed to operate in computers as well as in mobile
+          devices. To add the widget to website, it is necessary only to put the
+          following snippet into the page:
+        </p>
+        <div style="text-align: center">
           <div class="snippet">
-            &lt;weather-widget&gt;&lt;/weather-widget&gt;<br>
-            &lt;script type="text/javascript" src={ url to app }&gt;&lt;/script&gt;
+            &lt;weather-widget&gt;&lt;/weather-widget&gt;<br />
+            &lt;script type="text/javascript" src={ url to app
+            }&gt;&lt;/script&gt;
           </div>
-        </p>
-        <p>   
-          The Application receives the weather information from the OpenWeather resource. 
-          The weather updating for each city is performed during returning from the setup mode
-           or page reloading but not more often than once in 10 minutes according to the OpenWeather recommendation.
-        </p>
-        
+        </div>
         <p>
-          During the initial loading, the setup mode is switched on automatically and the user
-           is offered to put in the name of the city e.g. Moscow, Saint Petersburg, New York, San Francisco etc.
-            In case of an error in the name of the city, the message “The city is not found” will appear on the screen.
-             If the entered city exists in the list already, the message “The city is present already in the list”
-              will appear on the screen and the sending of request will be impossible. 
+          The Application receives the weather information from the OpenWeather
+          resource. The weather updating for each city is performed during
+          returning from the setup mode or page reloading but not more often
+          than once in 10 minutes according to the OpenWeather recommendation.
         </p>
+
         <p>
-          Changing of the order in the list of cities is carried out using the option
-           <span class="drag">drag’n’drop</span>
-           implemented for screens of desktop as well as mobile devices.
+          During the initial loading, the setup mode is switched on
+          automatically and the user is offered to put in the name of the city
+          e.g. Moscow, Saint Petersburg, New York, San Francisco etc. In case of
+          an error in the name of the city, the message “The city is not found”
+          will appear on the screen. If the entered city exists in the list
+          already, the message “The city is present already in the list” will
+          appear on the screen and the sending of request will be impossible.
         </p>
         <p>
-          The widget configuration settings are stored in the reactive array of the Application
-           and serialized into the local storage upon completion of the work.
-            At the beginning of the next session of the widget,
-             the data are loaded from the storage. All data can be deleted by the service button Reset.
+          Changing of the order in the list of cities is carried out using the
+          option
+          <span class="drag">drag’n’drop</span>
+          implemented for screens of desktop as well as mobile devices.
+        </p>
+        <p>
+          The widget configuration settings are stored in the reactive array of
+          the Application and serialized into the local storage upon completion
+          of the work. At the beginning of the next session of the widget, the
+          data are loaded from the storage. All data can be deleted by the
+          service button Reset.
         </p>
       </div>
 
-      <!-- <div id="app"></div> -->
       <weather-widget></weather-widget>
       <!-- built files will be auto injected -->
     </main>
