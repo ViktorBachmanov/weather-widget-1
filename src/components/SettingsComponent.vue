@@ -94,7 +94,7 @@ const isAlreadyExist = computed(() => {
 });
 
 const isDisabled = computed(() => {
-  return city.value === "" || isAlreadyExist.value;
+  return !city.value || isAlreadyExist.value;
 });
 
 const emit = defineEmits<{

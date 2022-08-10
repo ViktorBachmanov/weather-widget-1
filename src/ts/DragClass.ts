@@ -49,9 +49,18 @@ abstract class Drag {
     this.handleMove = this.handleMove.bind(this);
 
     this.setListeners();
+
+    this.locationClone.style.cursor = "grabbing";
+    const hamburgerClone = this.locationClone.querySelector(
+      ".hamburger"
+    ) as HTMLElement;
+    hamburgerClone!.style.cursor = "grabbing";
+    document.body.style.cursor = "grabbing";
   }
 
   abstract getEventY(event: MouseEvent | TouchEvent): number;
+
+  //abstract getEventTarget(event: MouseEvent | TouchEvent): HTMLElement;
 
   abstract setListeners(): void;
 
@@ -105,6 +114,7 @@ export class MouseDrag extends Drag {
         console.log("mouseup");
         this.locationClone.remove();
         document.removeEventListener("mousemove", this.handleMove);
+        document.body.style.removeProperty("cursor");
       },
       { once: true }
     );
@@ -127,6 +137,7 @@ export class TouchDrag extends Drag {
         console.log("touchend");
         this.locationClone.remove();
         document.removeEventListener("touchmove", this.handleMove);
+        document.body.style.removeProperty("cursor");
       },
       { once: true }
     );
