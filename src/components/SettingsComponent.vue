@@ -184,12 +184,12 @@ function dragTouch(index: number, event: TouchEvent) {
   align-items: flex-end;
 
   input {
+    $highlight: #818cf8;
+
     font-size: 100%;
     outline: 0;
     border-radius: 0.2em;
-    border: 1px solid #f0abfc;
-
-    $highlight: #c6538c;
+    border: 1px solid $highlight;
 
     &:focus {
       border-color: $highlight;

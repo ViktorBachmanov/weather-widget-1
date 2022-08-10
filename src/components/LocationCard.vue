@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <h4>{{ data.name }}</h4>
+    <h4>{{ data.name }}, {{ data.sys.country }}</h4>
     <div class="row">
       <img
         alt="weather"
