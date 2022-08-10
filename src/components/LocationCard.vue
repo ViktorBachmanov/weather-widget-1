@@ -44,7 +44,7 @@ interface Props {
   data: any;
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

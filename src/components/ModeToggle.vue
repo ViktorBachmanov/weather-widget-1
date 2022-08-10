@@ -23,7 +23,7 @@ interface Props {
   mode: Mode;
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 
 const emit = defineEmits(["toggleMode"]);
 </script>

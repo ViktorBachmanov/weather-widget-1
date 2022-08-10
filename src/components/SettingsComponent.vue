@@ -137,11 +137,15 @@ function setError(message: string) {
 }
 
 function dragMouse(index: number, event: MouseEvent) {
-  new MouseDrag(container.value!, index, reorder, event);
+  if (container.value) {
+    new MouseDrag(container.value, index, reorder, event);
+  }
 }
 
 function dragTouch(index: number, event: TouchEvent) {
-  new TouchDrag(container.value!, index, reorder, event);
+  if (container.value) {
+    new TouchDrag(container.value, index, reorder, event);
+  }
 }
 </script>
 
