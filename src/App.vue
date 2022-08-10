@@ -112,6 +112,7 @@ weather-widget {
   @media (min-width: 361px) {
     min-width: 20em;
     max-width: 20em;
+    flex: 0 0 20em;
   }
 
   margin: 1em auto;
