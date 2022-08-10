@@ -30,6 +30,16 @@
       p {
         text-indent: 1.5em;
       }
+      .snippet {
+        margin-left: 2em;
+        background-color: #e5e5e5;
+        display: inline-block;
+        padding: 0.5em;
+      }
+      .drag {
+        background-color: #e5e5e5;
+        padding: 0.33em;
+      }
     </style>
   </head>
   <body>
@@ -43,43 +53,39 @@
 
     <main>
       <div id="description">
-        <h1 style="text-align: center; margin-top: 0; font-size: 24px;">Виджет "Погода"</h1>
+        <h1 style="text-align: center; margin-top: 0; font-size: 24px;">Weather Widget</h1>
         <p>
-          Данное приложение (виджет) показывает текущую погоду в указанных
-          городах и предназначено для работы как на компьютере, так и на
-          мобильных устройствах. Для подключения виджета достаточно разместить
-          на странице следующий сниппет:
-          <div>
+          This Application (Widget) shows the current weather in the specified cities
+           and is designed to operate in computers as well as in mobile devices.
+            To add the widget to website, it is necessary only to put the following snippet into the page:
+          <div class="snippet">
             &lt;weather-widget&gt;&lt;/weather-widget&gt;<br>
             &lt;script type="text/javascript" src={ url to app }&gt;&lt;/script&gt;
-
           </div>
         </p>
         <p>   
-            Информацию о погоде приложение получает с ресурса OpenWeather. 
-            Обновление данных о погоде для определенного города 
-          происходит при возврате из режима настройки, а также при перезагрузке страницы,
-           но не чаще чем 1 раз за 10 мин, согласно рекомендации OpenWeather.
+          The Application receives the weather information from the OpenWeather resource. 
+          The weather updating for each city is performed during returning from the setup mode
+           or page reloading but not more often than once in 10 minutes according to the OpenWeather recommendation.
         </p>
         
         <p>
-          При первом посещении автоматически включается режим настройки, и
-          пользователю предлагается ввести название города, например Moscow,
-          Saint Petersburg, New York, San Francisco и т.д. В случае опечатки в названии
-           города на экране выводится сообщение "Город не найден". Если указанный город уже есть в списке,
-          выводится сообщение "Город уже представлен", и отправка запроса
-          становится невозможной.
+          During the initial loading, the setup mode is switched on automatically and the user
+           is offered to put in the name of the city e.g. Moscow, Saint Petersburg, New York, San Francisco etc.
+            In case of an error in the name of the city, the message “The city is not found” will appear on the screen.
+             If the entered city exists in the list already, the message “The city is present already in the list”
+              will appear on the screen and the sending of request will be impossible. 
         </p>
         <p>
-          Изменение порядка в списке городов осуществляется с помощью опции
-          drag'n'drop, реализованной для экранов как настольных, так и мобильных
-          устройств.
+          Changing of the order in the list of cities is carried out using the option
+           <span class="drag">drag’n’drop</span>
+           implemented for screens of desktop as well as mobile devices.
         </p>
         <p>
-          Конфигурационные настройки виджета хранятся в реактивной переменной
-          приложения и сериализуются в локальное хранилище по завершении работы.
-          В начале следующего сеанса работы виджета данные загружаются из
-          хранилища. Удалить все данные можно с помощью служебной кнопки Reset.
+          The widget configuration settings are stored in the reactive array of the Application
+           and serialized into the local storage upon completion of the work.
+            At the beginning of the next session of the widget,
+             the data are loaded from the storage. All data can be deleted by the service button Reset.
         </p>
       </div>
 

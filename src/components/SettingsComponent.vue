@@ -87,7 +87,7 @@ const isAlreadyExist = computed(() => {
       location.data.name.toUpperCase() === city.value.toUpperCase();
     if (result) {
       //error.value = "This city already presented";
-      setError("The city is already presented");
+      setError("The city is present already in the list");
     }
     return result;
   });
@@ -129,7 +129,7 @@ async function addLocation() {
   } else if (response.status === 404) {
     //console.log("Not found");
     //error.value = `City "${city.value}" not found`;
-    setError(`City "${city.value}" not found`);
+    setError(`The city "${city.value}" is not found`);
   }
 }
 
@@ -222,7 +222,7 @@ function dragTouch(index: number, event: TouchEvent) {
 
 .error {
   color: rgb(196, 30, 30);
-  padding: 0.25em;
+  padding-top: 0.5em;
   //min-height: 25px;
   min-height: 2em;
 }
