@@ -14,8 +14,8 @@
         <img
           src="../assets/icons8-menu-24.png"
           alt="hamburger"
-          @mousedown="drag(container!, index, reorder, $event)"
-          @touchstart="drag(container!, index, reorder, $event)"
+          @mousedown="dragMouse(index, $event)"
+          @touchstart="dragTouch(index, $event)"
           class="hamburger"
         />
         <!-- <HamburgerIcon
@@ -64,7 +64,8 @@ import { ref, defineEmits, defineProps, computed, watch } from "vue";
 
 import { Location } from "../ts/types";
 import { fetchLocationWeather } from "../ts/util";
-import drag from "../ts/drag";
+//import drag from "../ts/drag";
+import { MouseDrag, TouchDrag } from "../ts/DragClass";
 
 console.log("setup Settings component");
 
@@ -147,6 +148,14 @@ function setError(message: string) {
     error.value = "";
     unwatch();
   });
+}
+
+function dragMouse(index: number, event: MouseEvent) {
+  new MouseDrag(container.value!, index, reorder, event);
+}
+
+function dragTouch(index: number, event: TouchEvent) {
+  new TouchDrag(container.value!, index, reorder, event);
 }
 </script>
 
