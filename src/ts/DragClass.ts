@@ -1,8 +1,6 @@
 abstract class Drag {
   private container: HTMLElement;
-  //private initialIndex: number;
   private emit: (prevIndex: number, currentIndex: number) => void;
-  //protected event: MouseEvent | TouchEvent;
 
   private locations: NodeListOf<Element>;
   protected locationClone: HTMLElement;
@@ -18,9 +16,7 @@ abstract class Drag {
     startEvent: MouseEvent | TouchEvent
   ) {
     this.container = container;
-    //this.initialIndex = initialIndex;
     this.emit = emit;
-    //this.event = event;
 
     this.prevIndex = initialIndex;
 
@@ -49,7 +45,6 @@ abstract class Drag {
     this.container.append(this.locationClone);
 
     this.coords = createCoordinatesArray(this.locations);
-    console.log("coords: ", this.coords);
 
     this.handleMove = this.handleMove.bind(this);
 
@@ -74,8 +69,6 @@ abstract class Drag {
     this.moveAt(y);
   }
 
-  //let prevIndex = initialIndex;
-
   moveAt(currentY: number) {
     this.moveLocationImageBeneathPointer(currentY);
 
@@ -99,21 +92,6 @@ abstract class Drag {
 /////////////////////////////////////////////
 
 export class MouseDrag extends Drag {
-  //private startEvent: MouseEvent;
-
-  constructor(
-    container: HTMLElement,
-    initialIndex: number,
-    emit: (prevIndex: number, currentIndex: number) => void,
-    startEvent: MouseEvent
-  ) {
-    super(container, initialIndex, emit, startEvent);
-
-    //this.startEvent = startEvent as MouseEvent;
-
-    this.getEventY = this.getEventY.bind(this);
-  }
-
   getEventY(event: MouseEvent) {
     return event.clientY;
   }
@@ -136,21 +114,6 @@ export class MouseDrag extends Drag {
 /////////////////////////////////////////////
 
 export class TouchDrag extends Drag {
-  //private startEvent: TouchEvent;
-
-  constructor(
-    container: HTMLElement,
-    initialIndex: number,
-    emit: (prevIndex: number, currentIndex: number) => void,
-    startEvent: TouchEvent
-  ) {
-    super(container, initialIndex, emit, startEvent);
-
-    //this.event = event as TouchEvent;
-
-    this.getEventY = this.getEventY.bind(this);
-  }
-
   getEventY(event: TouchEvent) {
     return event.targetTouches.item(0)!.clientY;
   }
@@ -209,7 +172,3 @@ function createCoordinatesArray(locations: NodeList) {
 
   return coords;
 }
-
-///////////////////////////////////////////////////////////////////
-
-///////////////////////////////////////////////
