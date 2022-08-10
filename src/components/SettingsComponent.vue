@@ -166,6 +166,7 @@ function dragTouch(index: number, event: TouchEvent) {
   align-items: center;
   width: 100%;
   box-sizing: border-box;
+  border-radius: 0.4em;
 }
 .hamburger {
   cursor: grab;
