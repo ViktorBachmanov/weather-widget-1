@@ -1,3 +1,57 @@
+<script setup lang="ts">
+import { ref, onErrorCaptured } from "vue";
+import type { Ref } from "vue";
+
+import WeatherComponent from "./components/WeatherComponent.vue";
+import SettingsComponent from "./components/SettingsComponent.vue";
+import ModeToggle from "./components/ModeToggle.vue";
+
+import { Mode, Location } from "./ts/types";
+import { updateWeatherData } from "./ts/util";
+import { LOCAL_CONFIG } from "./ts/constants";
+
+import { useLocations } from "./composables/locations"
+
+
+onErrorCaptured(() => {
+  reset();
+});
+
+
+const { locations, add, remove, reorder, reset } = useLocations();
+
+function isNoStoredConfig() {
+  const localConfig = localStorage.getItem(LOCAL_CONFIG);
+  return localConfig === null;
+}
+
+const mode: Ref<Mode> = ref(isNoStoredConfig() ? Mode.Settings : Mode.Weather);
+
+updateWeatherData(locations.value);
+
+function toggleMode() {
+  switch (mode.value) {
+    case Mode.Weather:
+      mode.value = Mode.Settings;
+      break;
+    case Mode.Settings:
+      mode.value = Mode.Weather;
+      updateWeatherData(locations.value);
+      break;
+  }
+}
+
+function addLocation(location: Location) {
+  if (isNoStoredConfig()) {
+    mode.value = Mode.Weather;
+  }
+
+  add(location);
+}
+
+</script>
+
+
 <template>
   <div class="container">
     <WeatherComponent v-if="mode === Mode.Weather" :locations="locations" />
@@ -13,86 +67,6 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { reactive, ref, onErrorCaptured } from "vue";
-import type { Ref } from "vue";
-
-import WeatherComponent from "./components/WeatherComponent.vue";
-import SettingsComponent from "./components/SettingsComponent.vue";
-import ModeToggle from "./components/ModeToggle.vue";
-
-import { Mode, Location } from "./ts/types";
-import { updateWeatherData } from "./ts/util";
-
-const LOCAL_CONFIG = "weather_widget_vb";
-
-onErrorCaptured(() => {
-  reset();
-});
-
-function reset() {
-  locations.splice(0);
-  localStorage.removeItem(LOCAL_CONFIG);
-}
-
-addEventListener("beforeunload", () => {
-  if (locations.length) {
-    saveConfig();
-  }
-});
-
-function saveConfig() {
-  localStorage.setItem(LOCAL_CONFIG, JSON.stringify(locations));
-}
-
-const persistedData = localStorage.getItem(LOCAL_CONFIG);
-
-const initialLocations: Location[] = persistedData
-  ? JSON.parse(persistedData)
-  : [];
-
-const locations: Location[] = reactive([...initialLocations]);
-
-function isInitialOpening() {
-  const localConfig = localStorage.getItem(LOCAL_CONFIG);
-  return localConfig === null;
-}
-
-const mode: Ref<Mode> = ref(isInitialOpening() ? Mode.Settings : Mode.Weather);
-
-updateWeatherData(locations);
-
-function toggleMode() {
-  switch (mode.value) {
-    case Mode.Weather:
-      mode.value = Mode.Settings;
-      break;
-    case Mode.Settings:
-      mode.value = Mode.Weather;
-      updateWeatherData(locations);
-      break;
-  }
-}
-
-function addLocation(location: Location) {
-  locations.push(location);
-
-  if (isInitialOpening()) {
-    mode.value = Mode.Weather;
-    saveConfig();
-  }
-}
-
-function reorder(prevIndex: number, currentIndex: number) {
-  const movedLocation = locations[prevIndex];
-  locations.splice(prevIndex, 1);
-  locations.splice(currentIndex, 0, movedLocation);
-}
-
-function remove(index: number) {
-  locations.splice(index, 1);
-}
-</script>
 
 <style lang="scss">
 * {
