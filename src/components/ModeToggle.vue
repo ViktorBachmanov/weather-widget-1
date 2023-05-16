@@ -1,5 +1,16 @@
+<script setup lang="ts">
+import { Mode } from "../ts/types";
+
+interface Props {
+  mode: Mode;
+}
+
+defineProps<Props>();
+</script>
+
+
 <template>
-  <div @click="emit('toggleMode')" class="button">
+  <div @click="$emit('toggleMode')" class="button">
     <img
       alt="settings"
       src="@/assets/icons8-setting-24.png"
@@ -14,19 +25,6 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { defineProps, defineEmits } from "vue";
-
-import { Mode } from "../ts/types";
-
-interface Props {
-  mode: Mode;
-}
-
-defineProps<Props>();
-
-const emit = defineEmits(["toggleMode"]);
-</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">

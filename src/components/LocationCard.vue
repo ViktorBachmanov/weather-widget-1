@@ -1,3 +1,13 @@
+<script setup lang="ts">
+
+interface Props {
+  data: any;
+}
+
+defineProps<Props>();
+</script>
+
+
 <template>
   <div class="card">
     <h4>{{ data.name }}, {{ data.sys.country }}</h4>
@@ -37,15 +47,6 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { defineProps } from "vue";
-
-interface Props {
-  data: any;
-}
-
-defineProps<Props>();
-</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">

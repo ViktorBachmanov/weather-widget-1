@@ -1,60 +1,5 @@
-<template>
-  <div class="settings">
-    <h3>Settings</h3>
-
-    <div class="container" ref="container">
-      <div
-        v-for="(location, index) in locations"
-        :key="location.data.id"
-        class="location"
-      >
-        <img
-          src="../assets/icons8-menu-24.png"
-          alt="hamburger"
-          @mousedown="dragMouse(index, $event)"
-          @touchstart="dragTouch(index, $event)"
-          class="hamburger"
-        />
-
-        {{ location.data.name }}
-        <img
-          alt="trash"
-          src="@/assets/icons8-trash-24-1.png"
-          class="trash"
-          @click="remove(index)"
-        />
-      </div>
-    </div>
-
-    <p></p>
-
-    <div id="add-location">
-      <label style="text-align: left; font-size: 110%">
-        <div style="margin-bottom: 0.25em">Add Location</div>
-        <input
-          v-model="city"
-          @keyup.enter="addLocation"
-          placeholder="Enter city"
-        />
-      </label>
-
-      <img
-        alt="enter"
-        src="@/assets/icons8-enter-key-30.png"
-        @click="addLocation"
-        id="enter"
-        :class="{ disabled: isDisabled }"
-      />
-    </div>
-
-    <div class="error">{{ error }}</div>
-
-    <button @click="emit('reset')">Reset</button>
-  </div>
-</template>
-
 <script setup lang="ts">
-import { ref, defineEmits, defineProps, computed, watch } from "vue";
+import { ref, computed, watch } from "vue";
 
 import { Location } from "../ts/types";
 import { fetchLocationWeather } from "../ts/util";
@@ -149,7 +94,63 @@ function dragTouch(index: number, event: TouchEvent) {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
+<template>
+  <div class="settings">
+    <h3>Settings</h3>
+
+    <div class="container" ref="container">
+      <div
+        v-for="(location, index) in locations"
+        :key="location.data.id"
+        class="location"
+      >
+        <img
+          src="../assets/icons8-menu-24.png"
+          alt="hamburger"
+          @mousedown="dragMouse(index, $event)"
+          @touchstart="dragTouch(index, $event)"
+          class="hamburger"
+        />
+
+        {{ location.data.name }}
+        <img
+          alt="trash"
+          src="@/assets/icons8-trash-24-1.png"
+          class="trash"
+          @click="remove(index)"
+        />
+      </div>
+    </div>
+
+    <p></p>
+
+    <div id="add-location">
+      <label style="text-align: left; font-size: 110%">
+        <div style="margin-bottom: 0.25em">Add Location</div>
+        <input
+          v-model="city"
+          @keyup.enter="addLocation"
+          placeholder="Enter city"
+        />
+      </label>
+
+      <img
+        alt="enter"
+        src="@/assets/icons8-enter-key-30.png"
+        @click="addLocation"
+        id="enter"
+        :class="{ disabled: isDisabled }"
+      />
+    </div>
+
+    <div class="error">{{ error }}</div>
+
+    <button @click="emit('reset')">Reset</button>
+  </div>
+</template>
+
+
 <style scoped lang="scss">
 .settings {
   width: 100%;
