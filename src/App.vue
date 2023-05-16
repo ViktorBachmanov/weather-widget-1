@@ -56,7 +56,7 @@ function addLocation(location: Location) {
   <div class="container">
     <WeatherComponent v-if="mode === Mode.Weather" :locations="locations" />
     <SettingsComponent
-      v-if="mode === Mode.Settings"
+      v-else-if="mode === Mode.Settings"
       :locations="locations"
       @add-location="addLocation"
       @reorder="reorder"
